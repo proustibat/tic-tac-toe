@@ -1,0 +1,92 @@
+body {
+    font-family: 'Sedgwick Ave Display', cursive;
+    background: #111;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: auto;
+}
+
+.pads {
+    display: flex;
+    justify-content: space-between;
+    min-width: 275px;
+    margin-top: 2rem;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 1px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.canvas-container {
+    border: 3px dotted #fff;
+    padding: 2px;
+}
+.canvas-container canvas {
+}
+.game-canvas {
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    width: 2rem;
+    height: 2rem;
+    margin: .2rem;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    background: linear-gradient(rgb(216, 216, 216), rgb(209, 209, 209), rgb(186, 186, 186));
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 1px 7px 2px;
+    outline: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+
+h1 {
+    margin: 1rem auto;
+    text-align: center;
+    font-size: 2.4rem;
+}
+h2 {
+    font-size: 1.4rem;
+    margin: 0.5rem .2rem 1rem;
+}
+
+
+.players-pad {
+    padding: .5rem;
+    background: #fff;
+    outline: 2px dotted #fff;
+    color: #111;
+}
+
+
+.blink {
+    animation: blink-animation 1s steps(5, start) infinite;
+    -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+@-webkit-keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
