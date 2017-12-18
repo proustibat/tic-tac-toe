@@ -14,19 +14,15 @@ const defaultOptions = {
 
 class TicTacToe {
 
-    constructor(
-        {
-            canvasSize = defaultOptions.canvasSize,
-            players = defaultOptions.players
-        } = defaultOptions,
+    constructor( { canvasSize = defaultOptions.canvasSize, players = defaultOptions.players } = defaultOptions,
     ) {
 
         this.canvasSize = canvasSize > 320 ? 320 : canvasSize;
 
-        this.players = [
-            Object.assign( {}, defaultOptions.players[ 0 ], players[ 0 ] ),
-            Object.assign( {}, defaultOptions.players[ 1 ], players[ 1 ] )
-        ];
+        this.players = [];
+        for ( let i = 0,l = defaultOptions.players.length; i < l; i++ ) {
+            this.players.push( Object.assign( {}, defaultOptions.players[ i ], players[ i ] ) );
+        }
 
         this.canvas = document.querySelector( '.game-canvas' );
         this.ctx = this.canvas.getContext('2d');
