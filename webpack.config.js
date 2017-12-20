@@ -1,9 +1,15 @@
 const path = require( 'path' );
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
+const webpack = require( 'webpack' );
 
 module.exports = {
     entry: './src/js/main.js',
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
+        hot: true
+    },
     output: {
         filename: 'js/[name].[hash].js',
         path: path.resolve( __dirname, 'dist' )
@@ -31,5 +37,7 @@ module.exports = {
             hash: true
         }),
         new CleanWebpackPlugin( [ 'dist' ] ),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 };

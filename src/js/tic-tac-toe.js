@@ -11,13 +11,10 @@ const defaultOptions = {
     }]
 };
 
-
-
 export default class TicTacToe {
 
     constructor( { canvasSize = defaultOptions.canvasSize, players = defaultOptions.players } = defaultOptions,
     ) {
-
         this.canvasSize = canvasSize > 320 ? 320 : canvasSize;
 
         this.players = [];
