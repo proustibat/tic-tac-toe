@@ -13,15 +13,11 @@ A simple tic tac toe game in ES6
 # Watching for development
 ```
 yarn start
-
-// or 
-npm start
 ```
+*You can use `npm start` if you would rather not use yarn.*
 
 # Building
 ```
 yarn build
-
-// or 
-npm run build
 ```
+*You can use `npm run build` if you would rather not use yarn.*
