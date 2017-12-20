@@ -15,8 +15,6 @@ plugins:
     enabled: true
   fixme:
     enabled: true
-  scss-lint:
-      enabled: true
   stylelint:
       enabled: true
   csslint:
