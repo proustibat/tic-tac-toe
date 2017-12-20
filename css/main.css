@@ -1,4 +1,4 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
-@import url('https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display');
+@import "reset.min.css";
+@import "google-fonts.css";
 @import "boilerplate.css";
 @import "tictactoe.css";
