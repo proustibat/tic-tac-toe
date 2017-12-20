@@ -14,11 +14,11 @@
     "uglifyjs-webpack-plugin": "1.1.4",
     "url-loader": "0.6.2",
     "webpack": "3.10.0",
-    "webpack-dev-server": "2.9.7"
+    "webpack-dev-server": "2.9.7",
+    "webpack-merge": "4.1.1"
   },
   "scripts": {
-    "watch": "webpack --progress --watch",
-    "start": "webpack-dev-server --open",
-    "build": "webpack"
+    "start": "webpack-dev-server --open  --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   }
 }
