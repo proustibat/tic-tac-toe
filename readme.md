@@ -1,5 +1,9 @@
+[![Build Status](https://travis-ci.org/proustibat/demo-rellax.svg?branch=master)](https://travis-ci.org/proustibat/demo-rellax) 
+
 # Tic Tac Toe 
 A simple tic tac toe game in ES6
+
+## Demo available on [https://proustibat.github.io/tic-tac-toe/](https://proustibat.github.io/tic-tac-toe/)
 
 ## Installation
 
