@@ -6,3 +6,4 @@ gen
 
 # Built files
 dist
+node_modules
