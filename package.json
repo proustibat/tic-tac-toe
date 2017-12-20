@@ -8,6 +8,7 @@
   "devDependencies": {
     "clean-webpack-plugin": "0.1.17",
     "css-loader": "0.28.7",
+    "csslint": "1.0.5",
     "eslint": "4.13.1",
     "eslint-loader": "1.9.0",
     "file-loader": "1.1.6",
@@ -21,7 +22,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open  --config webpack.dev.js",
-    "build": "yarn lint && webpack --config webpack.prod.js",
-    "lint": "eslint . --ext .js"
+    "build": "yarn lint:js && webpack --config webpack.prod.js",
+    "lint:js": "eslint . --ext .js",
+    "lint:css": "csslint . --exclude-list=src/css/reset.min.css,src/css/boilerplate.css,src/css/google-fonts.css,node_modules/ --config=.csslintrc"
   }
 }
