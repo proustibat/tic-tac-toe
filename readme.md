@@ -1,7 +1,7 @@
 # Tic Tac Toe 
 A simple tic tac toe game in ES6
 
-# Installation
+## Installation
 
 ```
  git clone git@github.com:proustibat/tic-tac-toe.git
@@ -10,13 +10,13 @@ A simple tic tac toe game in ES6
 ```
 *You can use `npm install` if you would rather not use yarn.*
 
-# Watching for development
+## Watching for development
 ```
 yarn start
 ```
 *You can use `npm start` if you would rather not use yarn.*
 
-# Building
+## Building
 ```
 yarn build
 ```
