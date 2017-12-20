@@ -1,0 +1,31 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=2c0263d0730edc77654195955e1221cbfad01a4f3010dab476c3917769236fe2
+    - GITHUB_REPO: "proustibat/tic-tac-toe"
+    - secure: "tCRSfERQWucjcCxyJ7JcSIFvBYtyFF3AHqmW6qRM5oamyuCsQiuip79fh9oYV6UDv91XmtTJWusubFaaFJjRGLVgFMgYMCRCZ35CgJbpPTiGOxV0vuEd986OYp3N03eGKqxdgyFGxckRdnuHEtZaSM02cDt5En55ixBp89sHMvJpZE5IIuFf1ypgdZHhEteHMsJn3DnILvNnDeLgpvKUPyejSUCrAGmWOU638IzjKK2R9MKuCEID/HeuE/RSrA2oR9IuHL3ww+Qr6zr3pvp4WmRFg6jZ3X6vB2pYkgXT2I2x1IhwuRnb2mCNPIU194VquceLXn/deOtlzYMHul56po0h2FEouHVJESGSpZ/NUIhpj91GvTrVbNZNz/lcK8uqHCn04h8BJ4K6ai52R3ni7Ajuy254p1qFScX8Vhwzfw3errJNJbYm4A+HXnbw4oiBdZlNHjPjhFp3dzPvNNoaDwj0rNAL7txn3FekP4zDYNeFt2F+x9EQkEL/MUWs7qK8j0fD2aJ7RUJsraj9ZanJ/vH6alqYLuJkeuQYbVuzAwqEwbQl68QgSruk2ikHg72zPxOCoh2owQubEFFgIAYQi9sFMShrn1xANe+UZu3oyATz6iaf0ilpAfRbIoN8QnLov3i+RWrpFtXDLqMBMEBVegfePJwO+qMJ02Vnm7qbnlg="
+
+
+language: node_js
+
+node_js:
+  - "8"
+
+install:
+  - yarn install
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+
+script:
+  - yarn build
+
+
+# Here we want to check out where we are.
+# We only want to update Github Pages if we're building
+# the master branch of the original repository, so we
+# have to check $TRAVIS_PULL_REQUEST and $TRAVIS_BRANCH.
+# If we are here, we run bash deploy.sh
+after_success:
+ - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
