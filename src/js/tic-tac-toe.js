@@ -13,12 +13,11 @@ const defaultOptions = {
 
 export default class TicTacToe {
 
-    constructor( { canvasSize = defaultOptions.canvasSize, players = defaultOptions.players } = defaultOptions,
-    ) {
+    constructor( { canvasSize = defaultOptions.canvasSize, players = defaultOptions.players } = defaultOptions ) {
         this.canvasSize = canvasSize > 320 ? 320 : canvasSize;
 
         this.players = [];
-        for ( let i = 0,l = defaultOptions.players.length; i < l; i++ ) {
+        for ( let i = 0, l = defaultOptions.players.length; i < l; i++ ) {
             this.players.push( Object.assign( {}, defaultOptions.players[ i ], players[ i ] ) );
         }
 
@@ -67,12 +66,12 @@ export default class TicTacToe {
         // Grid colors for the beginning
         this.cells.forEach( ( cell, i ) => {
             let color = '#fafafa';
-            if( i % 2 ) {
+            if ( i % 2 ) {
                 color = '#fff';
             }
             this.ctx.fillStyle = color;
             this.ctx.fillRect( ...cell.coordinates );
-            this.ctx.strokeStyle = "#ebebeb";
+            this.ctx.strokeStyle = '#ebebeb';
             this.ctx.strokeRect( ...cell.coordinates );
         });
 
@@ -102,7 +101,7 @@ export default class TicTacToe {
 
     turnPlayerTo( player, isInit = false ) {
         this.activePlayer = player;
-        if(isInit) {
+        if ( isInit ) {
             document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ] .name i` ).classList.toggle( 'blink' );
         }
         else {
@@ -116,9 +115,11 @@ export default class TicTacToe {
         let playerId = e.currentTarget.closest( '.players-pad' ).getAttribute( 'data-tictactoe-player-id' );
         let indexBtn = Array.prototype.indexOf.call( this.buttons, e.currentTarget );
 
-        if( indexBtn >= 9 ) indexBtn -= 9;
+        if ( indexBtn >= 9 ) {
+            indexBtn -= 9;
+        }
 
-        if( this.activePlayer.id === playerId ) {
+        if ( this.activePlayer.id === playerId ) {
             if ( this.cells[ indexBtn ].isActive ) {
                 this.fillCell( this.activePlayer, this.cells[ indexBtn ].coordinates );
                 this.cells[ indexBtn ].isActive = false;
@@ -142,8 +143,8 @@ export default class TicTacToe {
 
     checkEndGame() {
         // TODO: scores
-        if( this.cells.every( cell => cell.isActive === false )  ) {
-            setTimeout( _ => alert( 'the game is end!' ), 100 );
+        if ( this.cells.every( cell => cell.isActive === false ) ) {
+            setTimeout( () => alert( 'the game is end!' ), 100 );
         }
     }
 }

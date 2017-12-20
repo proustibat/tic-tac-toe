@@ -1,0 +1,9 @@
+**/node_modules/
+**/coverage/
+**/tests/
+**/dist/
+**/bower_components/
+**/*.min.js
+**/*.map
+**/*.json
+karma.conf.js

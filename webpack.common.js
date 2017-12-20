@@ -22,6 +22,11 @@ module.exports = {
                 use: [
                     'file-loader?name=fonts/[name].[ext]'
                 ]
+            },
+            {
+                test: /\.js?$/,
+                exclude: /node_modules/,
+                loaders: ['eslint-loader']
             }
         ]
     },
