@@ -12,7 +12,8 @@ const defaultOptions = {
 };
 
 
-class TicTacToe {
+
+export default class TicTacToe {
 
     constructor( { canvasSize = defaultOptions.canvasSize, players = defaultOptions.players } = defaultOptions,
     ) {
@@ -149,5 +150,3 @@ class TicTacToe {
         }
     }
 }
-
-document.addEventListener( 'DOMContentLoaded', _ => new TicTacToe());
