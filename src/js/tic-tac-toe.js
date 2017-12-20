@@ -32,7 +32,25 @@ export default class TicTacToe {
         this.canvas.width = this.canvas.height = this.canvasSize;
         this.canvas.parentElement.style.width = this.canvas.parentElement.style.height = `${ this.canvasSize }px`;
 
-        // Calculate cells
+        // Calculate cells sizes and coordinates
+        this.initCellsSizes();
+
+
+        // Grid colors for the beginning
+        this.initCellsColors();
+
+        // Players names and colors
+        this.initPlayers();
+
+        // Buttons listeners
+        this.buttons = document.querySelectorAll( 'button' );
+        this.buttons.forEach( btn => btn.addEventListener( 'click', this.onClick.bind( this ) ) );
+
+        // Let's start with the first player in the list
+        this.turnPlayerTo( this.players[ 0 ], true );
+    }
+
+    initCellsSizes() {
         const edge = Math.round( this.canvasSize / 3 );
         this.cells = [{
             isActive: true,
@@ -62,8 +80,9 @@ export default class TicTacToe {
             isActive: true,
             coordinates: [ 2 * edge, 2 * edge, edge, edge ],
         }];
+    }
 
-        // Grid colors for the beginning
+    initCellsColors() {
         this.cells.forEach( ( cell, i ) => {
             let color = '#fafafa';
             if ( i % 2 ) {
@@ -74,8 +93,9 @@ export default class TicTacToe {
             this.ctx.strokeStyle = '#ebebeb';
             this.ctx.strokeRect( ...cell.coordinates );
         });
+    }
 
-        // Players names and colors
+    initPlayers() {
         this.players.forEach( player => {
             const $pad = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
             const $name = $pad.querySelector( '.name' );
@@ -90,13 +110,6 @@ export default class TicTacToe {
             symbol.style.backgroundColor = player.color;
             $name.prepend(symbol);
         });
-
-        // Buttons listeners
-        this.buttons = document.querySelectorAll( 'button' );
-        this.buttons.forEach( btn => btn.addEventListener( 'click', this.onClick.bind( this ) ) );
-
-        // Let's start with the first player in the list
-        this.turnPlayerTo( this.players[ 0 ], true );
     }
 
     turnPlayerTo( player, isInit = false ) {
