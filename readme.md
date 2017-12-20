@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/proustibat/demo-rellax.svg?branch=master)](https://travis-ci.org/proustibat/demo-rellax) 
-
+[![Build Status](https://travis-ci.org/proustibat/tic-tac-toe.svg?branch=master)](https://travis-ci.org/proustibat/tic-tac-toe)  [![Code Climate](https://img.shields.io/codeclimate/maintainability/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe/maintainability) [![Code Climate](https://img.shields.io/codeclimate/issues/github/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe/issues) [![Code Climate](https://img.shields.io/codeclimate/c/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe)
 # TIC TAC TOE 
 A simple tic tac toe game in ES6
 
