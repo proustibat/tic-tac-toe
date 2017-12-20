@@ -54,6 +54,7 @@
         "no-mixed-requires": 0,
         "no-path-concat": 1,
         "indent": [2, 4, {"SwitchCase": 1}],
+        "indentation": 4,
         "quotes": [1, "single"],
         "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
         "camelcase": [2, {"properties": "always"}],

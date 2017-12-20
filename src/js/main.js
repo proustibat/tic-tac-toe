@@ -1,6 +1,5 @@
 import '../css/reset.min.css';
 import '../css/google-fonts.css';
-import '../css/boilerplate.css';
 import '../css/tictactoe.css';
 
 import TicTacToe from './tic-tac-toe';
