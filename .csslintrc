@@ -5,7 +5,8 @@
     "known-properties",
     "order-alphabetical",
     "box-sizing",
-    "box-model"
+    "box-model",
+    "bulletproof-font-face"
   ],
   "warnings": [
     "adjoining-classes",
@@ -16,12 +17,11 @@
     "fallback-colors",
     "star-property-hack",
     "underscore-property-hack",
-    "bulletproof-font-face",
     "floats",
     "duplicate-background-images",
-    "font-faces",
     "font-sizes",
-    "gradients"
+    "gradients",
+    "font-faces"
   ],
   "errors": [
     "empty-rules",
