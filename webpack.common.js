@@ -3,7 +3,10 @@ const HtmlWebpackPlugin     = require( 'html-webpack-plugin' );
 const CleanWebpackPlugin    = require( 'clean-webpack-plugin' );
 
 module.exports = {
-    entry: ['./src/js/main.js', './src/index.html'],
+    entry: [
+        './src/js/main.js',
+        './src/index.html'
+    ],
     output: {
         filename: 'js/[name].[hash].js',
         path: path.resolve( __dirname, 'dist' ),

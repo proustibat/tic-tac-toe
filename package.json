@@ -1,11 +1,12 @@
 {
-  "name": "tictactoe-simple",
+  "name": "prstbt-tictactoe",
   "version": "1.0.0",
   "main": "main.js",
   "repository": "git@github.com:proustibat/tic-tac-toe.git",
   "author": "Proustibat <proustibat@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "chalk": "2.3.0",
     "clean-webpack-plugin": "0.1.17",
     "css-loader": "0.28.7",
     "csslint": "1.0.5",
@@ -15,17 +16,19 @@
     "html-webpack-plugin": "2.30.1",
     "jquery": "3.2.1",
     "materialize-css": "0.100.2",
+    "path": "0.12.7",
     "raw-loader": "0.5.1",
     "style-loader": "0.19.1",
     "uglifyjs-webpack-plugin": "1.1.4",
     "url-loader": "0.6.2",
+    "util": "0.10.3",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.9.7",
     "webpack-merge": "4.1.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --open  --config webpack.dev.js",
-    "build": "yarn lint:js && webpack --config webpack.prod.js",
+    "start": "node build.js && webpack-dev-server --open  --config webpack.dev.js",
+    "build": "node build.js && yarn lint:js && webpack --config webpack.prod.js",
     "lint:js": "eslint . --ext .js",
     "lint:css": "csslint . --exclude-list=node_modules/ --config=.csslintrc"
   }

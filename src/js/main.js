@@ -16,8 +16,10 @@ import 'materialize-css/dist/js/materialize';
 import TicTacToe from './tic-tac-toe';
 import Layout from './layout';
 
+import './AppInfo';
+
 if ( process.env.NODE_ENV !== 'production' ) {
-    console.warn( '⚠ ⟁ Looks like we are in development mode! ⚠ ⟁' );
+    console.warn( '⟁ ⚠ Looks like we are in development mode! ⚠ ⟁' );
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
