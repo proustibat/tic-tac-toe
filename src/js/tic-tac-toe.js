@@ -43,7 +43,7 @@ export default class TicTacToe {
 
 
         // Grid colors for the beginning
-        this.initCellsColors();
+        // this.initCellsColors();
 
         // Players names and colors
         this.initPlayers();
@@ -60,24 +60,22 @@ export default class TicTacToe {
 
             col = i % this.cellsEdge;
 
+            // Calculate coordinates
             this.cells.push({
                 isActive: true,
+                ownedBy: null,
                 coordinates: [ edge * col, edge * row, edge, edge ],
             });
 
             row = col === this.cellsEdge - 1 ? row += 1 : row;
 
-        }
-    }
-
-    initCellsColors() {
-        this.cells.forEach( ( cell, i ) => {
-            let color = '#fafafa';
+            // Init color of the cell
+            let initColor = '#fafafa';
             if ( i % 2 ) {
-                color = '#eeeeee';
+                initColor = '#eeeeee';
             }
-            this.fillCell( color, cell.coordinates );
-        });
+            this.fillCell( initColor, this.cells[ this.cells.length - 1 ].coordinates );
+        }
     }
 
     initPlayers() {
