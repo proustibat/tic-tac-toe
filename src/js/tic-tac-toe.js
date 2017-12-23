@@ -70,11 +70,11 @@ export default class TicTacToe {
         this.cells.forEach( ( cell, i ) => {
             let color = '#fafafa';
             if ( i % 2 ) {
-                color = '#fff';
+                color = '#eeeeee';
             }
             this.ctx.fillStyle = color;
             this.ctx.fillRect( ...cell.coordinates );
-            this.ctx.strokeStyle = '#ebebeb';
+            this.ctx.strokeStyle = '#bdbdbd';
             this.ctx.strokeRect( ...cell.coordinates );
         });
     }
@@ -109,8 +109,12 @@ export default class TicTacToe {
 
         // buttons
         const buttons = this.cells.map( ( cell, i ) => {
-            const btn = document.createElement( 'button' );
-            btn.appendChild( document.createTextNode( '✔' ) );
+            const btn = document.createElement( 'a' );
+            const icon = document.createElement( 'i' );
+            btn.appendChild( icon );
+            icon.setAttribute( 'class', 'material-icons grey-text text-darken-4' );
+            icon.append( document.createTextNode( 'fiber_manual_record' ) );
+            btn.setAttribute( 'class', 'btn waves-effect grey lighten-4' );
             btn.setAttribute( 'data-cell-index', i );
             btn.setAttribute( 'data-player-id', playerId );
             btn.addEventListener( 'click', this.onClick.bind( this ) );
