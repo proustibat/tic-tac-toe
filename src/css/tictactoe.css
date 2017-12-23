@@ -5,15 +5,17 @@
 html {
     box-sizing: border-box;
 }
+/* csslint ignore:start */
 *, *:before, *:after {
     box-sizing: inherit;
 }
+/* csslint ignore:end */
 
 body {
     font-family: 'Sedgwick Ave Display', cursive;
 }
 
-
+/* csslint ignore:start */
 #toast-container {
     min-width: 100%;
     bottom: auto;
@@ -21,7 +23,7 @@ body {
     right: 0;
     top: 0;
 }
-
+/* csslint ignore:end */
 
 /*******************************
  *  GAME
