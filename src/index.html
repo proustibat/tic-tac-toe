@@ -1,15 +1,29 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Tic Tac Toe Simple Game</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Tic Tac Toe Simple Game</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 
-        <div class="container">
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+    <div class="container">
+
+        <div class="section">
 
             <h1>Tic tac toe</h1>
 
@@ -19,41 +33,43 @@
                     <canvas class="game-canvas"></canvas>
                 </div>
 
-                <div class="pads">
-                    <div class="players-pad" data-tictactoe-player-id="player-1">
+                <div class="joysticks">
+                    <div class="players-joystick" data-tictactoe-player-id="player-1">
                         <h2 class="name">Player 1</h2>
-                        <div class="grid">
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                        </div>
-
                     </div>
-                    <div class="players-pad" data-tictactoe-player-id="player-2">
+                    <div class="players-joystick" data-tictactoe-player-id="player-2">
                         <h2 class="name">Player 2</h2>
-                        <div class="grid">
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                            <button>✔</button>
-                        </div>
                     </div>
                 </div>
 
             </div>
 
         </div>
+    </div>
 
-    </body>
+    <footer class="page-footer orange">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Proustibat</h5>
+                    <p class="grey-text text-lighten-4">Tic Tac Toe Game</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="white-text" href="https://proustibat.github.io/tic-tac-toe/" target="_blank">Online demo</a></li>
+                        <li><a class="white-text" href="https://travis-ci.org/proustibat/tic-tac-toe" target="_blank">Travis Status</a></li>
+                        <li><a class="white-text" href="https://codeclimate.com/github/proustibat/tic-tac-toe/" target="_blank">Code Climate</a></li>
+                        <li><a class="white-text" href="https://github.com/proustibat/tic-tac-toe" target="_blank">Github Source</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <a class="orange-text text-lighten-3" href="https://github.com/proustibat" target="_blank">Proustibat</a>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>

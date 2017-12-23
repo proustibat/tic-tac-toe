@@ -17,19 +17,6 @@ body {
     margin: auto;
 }
 
-.pads {
-    display: flex;
-    justify-content: space-between;
-    min-width: 275px;
-    margin-top: 2rem;
-}
-
-.grid {
-    display: grid;
-    grid-gap: 1px;
-    grid-template-columns: repeat(3, 1fr);
-}
-
 .canvas-container {
     border: 3px dotted #fff;
     padding: 2px;
@@ -38,6 +25,24 @@ body {
 .game-canvas {
     padding: 0;
     margin: 0;
+}
+
+.joysticks {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.players-joystick {
+    padding: .5rem;
+    background: #fff;
+    outline: 2px dotted #fff;
+    color: #111;
+    margin: 0 .5rem;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 1px;
 }
 
 button {
@@ -63,14 +68,6 @@ h1 {
 h2 {
     font-size: 1.4rem;
     margin: 0.5rem .2rem 1rem;
-}
-
-
-.players-pad {
-    padding: .5rem;
-    background: #fff;
-    outline: 2px dotted #fff;
-    color: #111;
 }
 
 

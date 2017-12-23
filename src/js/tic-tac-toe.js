@@ -1,6 +1,6 @@
 const defaultOptions = {
     canvasSize: 270, //max 320,
-    cellsEdge: 4,
+    cellsEdge: 3,
     players: [{
         id:     'player-1',
         pseudo: 'Jane',
@@ -44,10 +44,6 @@ export default class TicTacToe {
         // Players names and colors
         this.initPlayers();
 
-        // Buttons listeners
-        this.buttons = document.querySelectorAll( 'button' );
-        this.buttons.forEach( btn => btn.addEventListener( 'click', this.onClick.bind( this ) ) );
-
         // Let's start with the first player in the list
         this.turnPlayerTo( this.players[ 0 ], true );
     }
@@ -85,19 +81,45 @@ export default class TicTacToe {
 
     initPlayers() {
         this.players.forEach( player => {
-            const $pad = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
-            const $name = $pad.querySelector( '.name' );
+            const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
+            const $name = $joystick.querySelector( '.name' );
             $name.firstChild.nodeValue = ` ${ player.pseudo }`;
             const symbol = document.createElement('i');
             symbol.style.width = '10px';
             symbol.style.height = '10px';
             symbol.style.display = 'inline-block';
-            symbol.style.verticalAlign= 'middle';
-            symbol.style.borderRadius= '5px';
+            symbol.style.verticalAlign = 'middle';
+            symbol.style.borderRadius = '5px';
 
             symbol.style.backgroundColor = player.color;
             $name.prepend(symbol);
+
+            this.initJoystick( player.id, $joystick );
         });
+    }
+
+    initJoystick( playerId, container ) {
+
+        console.log( playerId, container );
+
+        // grid
+        const grid = document.createElement( 'div' );
+        grid.setAttribute( 'class', 'grid' );
+        grid.style.setProperty( 'grid-template-columns', `repeat(${ this.cellsEdge }, 1fr)` );
+
+        // buttons
+        const buttons = this.cells.map( ( cell, i ) => {
+            const btn = document.createElement( 'button' );
+            btn.appendChild( document.createTextNode( '✔' ) );
+            btn.setAttribute( 'data-cell-index', i );
+            btn.setAttribute( 'data-player-id', playerId );
+            btn.addEventListener( 'click', this.onClick.bind( this ) );
+            grid.appendChild( btn );
+            return btn;
+        });
+
+
+        container.appendChild( grid );
     }
 
     turnPlayerTo( player, isInit = false ) {
@@ -113,17 +135,15 @@ export default class TicTacToe {
     }
 
     onClick( e ) {
-        let playerId = e.currentTarget.closest( '.players-pad' ).getAttribute( 'data-tictactoe-player-id' );
-        let indexBtn = Array.prototype.indexOf.call( this.buttons, e.currentTarget );
-
-        if ( indexBtn >= 9 ) {
-            indexBtn -= 9;
-        }
+        const btn = e.currentTarget;
+        const playerId = btn.getAttribute( 'data-player-id' );
+        const cellIndex = parseInt( btn.getAttribute( 'data-cell-index' ), 10 );
+        const cellClicked = this.cells[ cellIndex ];
 
         if ( this.activePlayer.id === playerId ) {
-            if ( this.cells[ indexBtn ].isActive ) {
-                this.fillCell( this.activePlayer, this.cells[ indexBtn ].coordinates );
-                this.cells[ indexBtn ].isActive = false;
+            if ( cellClicked.isActive ) {
+                this.fillCell( this.activePlayer, cellClicked.coordinates );
+                cellClicked.isActive = false;
                 this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
                 this.checkEndGame();
             }
