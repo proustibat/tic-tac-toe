@@ -18,7 +18,12 @@ plugins:
   stylelint:
       enabled: true
   csslint:
-      enabled: true
+    enabled: true
+    checks:
+      bulletproof-font-face:
+        enabled: false
+      universal-selector:
+        enabled: false
 
 version: "2"
 checks:
