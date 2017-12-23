@@ -1,5 +1,6 @@
 const defaultOptions = {
-    canvasSize: 270, //max 320
+    canvasSize: 270, //max 320,
+    cellsEdge: 4,
     players: [{
         id:     'player-1',
         pseudo: 'Jane',
@@ -13,7 +14,8 @@ const defaultOptions = {
 
 export default class TicTacToe {
 
-    constructor( { canvasSize = defaultOptions.canvasSize, players = defaultOptions.players } = defaultOptions ) {
+    constructor( { canvasSize = defaultOptions.canvasSize, cellsEdge = defaultOptions.cellsEdge, players = defaultOptions.players } = defaultOptions ) {
+        this.cellsEdge = cellsEdge;
         this.canvasSize = canvasSize > 320 ? 320 : canvasSize;
 
         this.players = [];
@@ -51,35 +53,21 @@ export default class TicTacToe {
     }
 
     initCellsSizes() {
-        const edge = Math.round( this.canvasSize / 3 );
-        this.cells = [{
-            isActive: true,
-            coordinates: [ 0, 0, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ edge, 0, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ 2 * edge, 0, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ 0, edge, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ edge, edge, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ 2 * edge, edge, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ 0, 2 * edge, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ edge, 2 * edge, edge, edge ],
-        }, {
-            isActive: true,
-            coordinates: [ 2 * edge, 2 * edge, edge, edge ],
-        }];
+        const edge = Math.round( this.canvasSize / this.cellsEdge );
+
+        this.cells = [];
+        for ( let i = 0, l = Math.pow( this.cellsEdge, 2 ), row = 0, col; i < l; i++ ) {
+
+            col = i % this.cellsEdge;
+
+            this.cells.push({
+                isActive: true,
+                coordinates: [ edge * col, edge * row, edge, edge ],
+            });
+
+            row = col === this.cellsEdge - 1 ? row += 1 : row;
+
+        }
     }
 
     initCellsColors() {
