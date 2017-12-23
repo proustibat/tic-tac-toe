@@ -67,7 +67,7 @@ module.exports = ( () => {
 
             this.log.info( 'Prepare AppInfo data' );
             const timestamp = Date.now();
-            const contentFile = `window.AppInfo = { name: '${ pkg.name }', version: '${ pkg.version }', build: '${ timestamp }', dateBuild: '${ new Date( timestamp ).toUTCString() }' };\n`;
+            const contentFile = `window.AppInfo = { name: '${ pkg.name }', version: '${ pkg.version }', build: '${ timestamp }', dateBuild: '${ new Date( timestamp ).toISOString() }' };\n`;
             this.log.done( 'AppInfo ok' );
 
             this.log.separator();

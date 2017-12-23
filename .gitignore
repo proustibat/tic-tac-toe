@@ -7,3 +7,4 @@ gen
 # Built files
 dist
 node_modules
+src/js/AppInfo.js
