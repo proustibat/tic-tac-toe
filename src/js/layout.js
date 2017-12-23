@@ -13,7 +13,6 @@ export default class Layout {
     }
 
     init() {
-        console.log('Layout.init');
         // Initialize collapse button
         $( '.button-collapse' ).sideNav({
             menuWidth: 300,
@@ -40,7 +39,6 @@ export default class Layout {
         if ( !msg || typeof msg !== 'string' ) {
             return false;
         }
-        console.log(time);
         // message, displayLength, className, completeCallback
         Materialize.toast( msg, time, colorClass ? colorClass : '' );
     }
