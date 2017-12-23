@@ -1,8 +1,5 @@
 const chalk = require( 'chalk' );
-const path  = require( 'path' );
 const log   = console.log;
-const error = console.error;
-const info  = console.info;
 const util  = require( 'util' );
 const fs    = require( 'fs' );
 
@@ -40,15 +37,15 @@ module.exports = ( () => {
 
                 congrats: msg => {
                     log( '\r' );
-                    info( chalk.white.bgGreen.bold( ` ☆    ${ util.inspect( msg.toUpperCase(), false, null ) }  ☆  `  ) );
+                    log( chalk.white.bgGreen.bold( ` ☆    ${ util.inspect( msg.toUpperCase(), false, null ) }  ☆  ` ) );
                     log( '\r' );
                 },
 
-                info: msg => info( chalk.white( ( `►  ${ util.inspect( msg, false, null ) }` ) ) ),
+                info: msg => log( chalk.white( ( `►  ${ util.inspect( msg, false, null ) }` ) ) ),
 
-                done: msg => info( chalk.green( ( `✓  Done:\n ${ util.inspect( msg, false, null ) }` ) ) ),
+                done: msg => log( chalk.green( ( `✓  Done:\n ${ util.inspect( msg, false, null ) }` ) ) ),
 
-                error: err => info( chalk.red( (`☹  Error:\n ${ util.inspect( err, false, null ) }` ) ) )
+                error: err => log( chalk.red( (`☹  Error:\n ${ util.inspect( err, false, null ) }` ) ) )
             };
 
             this.prepareBuild();
