@@ -1,3 +1,7 @@
+/*******************************
+ *  LAYOUT
+ *******************************/
+
 html {
     box-sizing: border-box;
 }
@@ -9,6 +13,19 @@ body {
     font-family: 'Sedgwick Ave Display', cursive;
 }
 
+
+#toast-container {
+    min-width: 100%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+
+/*******************************
+ *  GAME
+ *******************************/
 .app {
     display: flex;
     flex-direction: column;
@@ -52,27 +69,6 @@ body {
 }
 
 h1 {
-    margin: 1rem auto;
-    text-align: center;
-    font-size: 2.4rem;
-}
-h2 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 0.5rem .2rem 1rem;
-}
-
-
-.blink {
-    animation: blink-animation 1s steps(5, start) infinite;
-    -webkit-animation: blink-animation 1s steps(5, start) infinite;
-}
-@keyframes blink-animation {
-    to {
-        visibility: hidden;
-    }
-}
-@-webkit-keyframes blink-animation {
-    to {
-        visibility: hidden;
-    }
 }

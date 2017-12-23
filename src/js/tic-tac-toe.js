@@ -1,3 +1,5 @@
+import Layout from './layout';
+
 const defaultOptions = {
     canvasSize: 270, //max 320,
     cellsEdge: 3,
@@ -15,6 +17,8 @@ const defaultOptions = {
 export default class TicTacToe {
 
     constructor( { canvasSize = defaultOptions.canvasSize, cellsEdge = defaultOptions.cellsEdge, players = defaultOptions.players } = defaultOptions ) {
+        this.layout = new Layout();
+
         this.cellsEdge = cellsEdge;
         this.canvasSize = canvasSize > 320 ? 320 : canvasSize;
 
@@ -99,16 +103,13 @@ export default class TicTacToe {
     }
 
     initJoystick( playerId, container ) {
-
-        console.log( playerId, container );
-
         // grid
         const grid = document.createElement( 'div' );
         grid.setAttribute( 'class', 'grid' );
         grid.style.setProperty( 'grid-template-columns', `repeat(${ this.cellsEdge }, 1fr)` );
 
         // buttons
-        const buttons = this.cells.map( ( cell, i ) => {
+        this.cells.forEach( ( cell, i ) => {
             const btn = document.createElement( 'a' );
             const icon = document.createElement( 'i' );
             btn.appendChild( icon );
@@ -121,8 +122,6 @@ export default class TicTacToe {
             grid.appendChild( btn );
             return btn;
         });
-
-
         container.appendChild( grid );
     }
 
@@ -152,11 +151,11 @@ export default class TicTacToe {
                 this.checkEndGame();
             }
             else {
-                alert( 'Cell is already taken!' );
+                this.layout.alert( 'Cell is already taken!' )
             }
         }
         else {
-            alert( `${ [ ...this.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
+            this.layout.alert( `${ [ ...this.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
         }
 
     }
@@ -169,7 +168,7 @@ export default class TicTacToe {
     checkEndGame() {
         // TODO: scores
         if ( this.cells.every( cell => cell.isActive === false ) ) {
-            setTimeout( () => alert( 'the game is end!' ), 100 );
+            this.layout.info( 'The game is end!', 5000 );
         }
     }
 }
