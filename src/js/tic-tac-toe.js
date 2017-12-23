@@ -76,10 +76,7 @@ export default class TicTacToe {
             if ( i % 2 ) {
                 color = '#eeeeee';
             }
-            this.ctx.fillStyle = color;
-            this.ctx.fillRect( ...cell.coordinates );
-            this.ctx.strokeStyle = '#bdbdbd';
-            this.ctx.strokeRect( ...cell.coordinates );
+            this.fillCell( color, cell.coordinates );
         });
     }
 
@@ -145,7 +142,7 @@ export default class TicTacToe {
 
         if ( this.activePlayer.id === playerId ) {
             if ( cellClicked.isActive ) {
-                this.fillCell( this.activePlayer, cellClicked.coordinates );
+                this.fillCell( this.activePlayer.color, cellClicked.coordinates, '#212121' );
                 cellClicked.isActive = false;
                 this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
                 this.checkEndGame();
@@ -160,15 +157,17 @@ export default class TicTacToe {
 
     }
 
-    fillCell( player, coordinates ) {
-        this.ctx.fillStyle = player.color;
+    fillCell( color, coordinates, borderColor = '#bdbdbd' ) {
+        this.ctx.fillStyle = color;
         this.ctx.fillRect( ...coordinates );
+        this.ctx.strokeStyle = borderColor;
+        this.ctx.strokeRect( ...coordinates );
     }
 
     checkEndGame() {
         // TODO: scores
         if ( this.cells.every( cell => cell.isActive === false ) ) {
-            this.layout.info( 'The game is end!', 5000 );
+            this.layout.info( 'The game is over!', 5000 );
         }
     }
 }

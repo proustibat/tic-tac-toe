@@ -4,7 +4,6 @@ import $ from 'jquery';
 export default class Layout {
 
     constructor() {
-        console.log('Hello Layout');
         if ( !Layout.instance ) {
             this.init();
             Layout.instance = this;
