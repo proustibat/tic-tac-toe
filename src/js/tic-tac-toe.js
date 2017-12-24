@@ -41,8 +41,6 @@ export default class TicTacToe {
     }
 
     setup() {
-        console.log('SETUP', this.players);
-
         this.initGame();
 
         // Players names and colors
@@ -122,45 +120,51 @@ export default class TicTacToe {
             const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
             const $name = $joystick.querySelector( '.name' );
 
-            while ( $name.firstChild ) {
-                $name.removeChild( $name.firstChild );
-            }
+            this.initPlayerName( $name, player );
 
-            let symbol;
-            if ( $name.querySelector( 'i' ) ) {
-                symbol = $name.querySelector( 'i' );
-            }
-            else {
-                symbol = document.createElement( 'i' );
-                symbol.style.width = '10px';
-                symbol.style.height = '10px';
-                symbol.style.display = 'inline-block';
-                symbol.style.verticalAlign = 'middle';
-                symbol.style.borderRadius = '5px';
-                $name.appendChild( symbol );
-            }
-            symbol.style.backgroundColor = player.color;
-
-            $name.appendChild( document.createTextNode( ` ${ player.pseudo }` ) );
-
-            let score;
-            if ( $name.querySelector( '.score' ) ) {
-                score = $name.querySelector( '.score' );
-            }
-            else {
-                score = document.createElement( 'span' );
-                score.setAttribute('class', 'score badge grey-text text-lighten-5' );
-                $name.appendChild( score );
-            }
-            score.appendChild( document.createTextNode(`${ player.score }`) );
+            this.initPlayerScore( $name, player );
 
             this.initJoystick( player.id, $joystick );
         });
+    }
 
+    initPlayerName( $name, player ) {
+
+        while ( $name.firstChild ) {
+            $name.removeChild( $name.firstChild );
+        }
+
+        let symbol;
+        if ( $name.querySelector( 'i' ) ) {
+            symbol = $name.querySelector( 'i' );
+        }
+        else {
+            symbol = document.createElement( 'i' );
+            symbol.style.width = '10px';
+            symbol.style.height = '10px';
+            symbol.style.display = 'inline-block';
+            symbol.style.verticalAlign = 'middle';
+            symbol.style.borderRadius = '5px';
+            $name.appendChild( symbol );
+        }
+        symbol.style.backgroundColor = player.color;
+        $name.appendChild( document.createTextNode( ` ${ player.pseudo }` ) );
+    }
+
+    initPlayerScore( $name, player ) {
+        let score;
+        if ( $name.querySelector( '.score' ) ) {
+            score = $name.querySelector( '.score' );
+        }
+        else {
+            score = document.createElement( 'span' );
+            score.setAttribute('class', 'score badge grey-text text-lighten-5' );
+            $name.appendChild( score );
+        }
+        score.appendChild( document.createTextNode(`${ player.score }`) );
     }
 
     initJoystick( playerId, container ) {
-
         // grid
         let grid;
         if ( container.querySelector( '.grid' ) ) {
@@ -305,7 +309,5 @@ export default class TicTacToe {
 
         this.toggleFreeze();
         this.setup();
-
-        // TODO : destroy and rerun
     }
 }
