@@ -162,21 +162,21 @@ export default class TicTacToe {
         const cellIndex = parseInt( btn.getAttribute( 'data-cell-index' ), 10 );
         const cellClicked = this.cells[ cellIndex ];
 
-        if ( this.activePlayer.id === playerId ) {
-            if ( cellClicked.isActive ) {
-                this.fillCell( this.activePlayer.color, cellClicked.coordinates, '#212121' );
-                cellClicked.isActive = false;
-                cellClicked.ownedBy = playerId;
-                this.checkEndGame();
-                this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
-            }
-            else {
-                this.layout.alert( 'Cell is already taken!' )
-            }
-        }
-        else {
+        if ( this.activePlayer.id !== playerId ) {
             this.layout.alert( `${ [ ...this.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
+            return false;
         }
+
+        if ( !cellClicked.isActive ) {
+            this.layout.alert( 'Cell is already taken!' );
+            return false;
+        }
+
+        this.fillCell( this.activePlayer.color, cellClicked.coordinates, '#212121' );
+        cellClicked.isActive = false;
+        cellClicked.ownedBy = playerId;
+        this.checkEndGame();
+        this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
 
     }
 
