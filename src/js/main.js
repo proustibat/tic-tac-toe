@@ -8,6 +8,7 @@ import 'materialize-css/dist/css/materialize.css';
 import '../css/google-fonts.css';
 import '../css/utilities.css';
 import '../css/tictactoe.css';
+import '../css/shame.css';
 
 // JS
 // Materialize

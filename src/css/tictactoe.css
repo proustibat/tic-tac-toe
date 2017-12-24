@@ -30,9 +30,8 @@ body {
     padding: .5rem 1rem .2rem 2rem;
     height: auto;
 }
-.nav-wrapper li {
-}
-.nav-wrapper li.menu-title {
+
+.menu-title {
     text-align: center;
     font-size: 2rem;
     padding: 2rem 0 1rem;
@@ -93,52 +92,6 @@ h1 .score {
     text-align: right;
     min-width: auto;
     padding: 0;
-}
-
-/*
-   When creating your CSS selector,
-   change "brown" to something of your choosing
-   */
-.waves-effect.waves-dark .waves-ripple {
-    /* The alpha value allows the text and background color
-    of the button to still show through. */
-    background-color: rgba(33, 33, 33, .8);
-}
-
-
-
-
-
-input[type=range]::-webkit-slider-thumb {
-    background-color: #212121;
-}
-input[type=range]::-moz-range-thumb {
-    background-color: #212121;
-}
-input[type=range]::-ms-thumb {
-    background-color: #212121;
-}
-
-/***** These are to edit the thumb and the text inside the thumb *****/
-input[type=range] + .thumb {
-    background-color: #e0e0e0;
-}
-input[type=range] + .thumb.active .value {
-    color: #212121;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-input[type=text]:not(.browser-default):focus:not([readonly]) + label {
-    color: #212121;
-}
-
-
-input[type=text].valid:not(.browser-default),
-input[type=text]:not(.browser-default):focus:not([readonly]) {
-    border-bottom: 1px solid #212121;
-    box-shadow: 0 1px 0 0 #212121;
 }
 
 .modal .modal-footer {
