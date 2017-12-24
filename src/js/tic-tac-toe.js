@@ -161,10 +161,7 @@ export default class TicTacToe {
 
     turnPlayerTo( player, isInit = false ) {
         this.activePlayer = player;
-        if ( isInit ) {
-            document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ] .name i` ).classList.toggle( 'blink' );
-        }
-        else {
+        if ( !isInit && !this.isFreeze ) {
             this.players.forEach( p => {
                 document.querySelector( `[ data-tictactoe-player-id="${ p.id }" ] .name i` ).classList.toggle( 'blink' );
             })
@@ -229,10 +226,18 @@ export default class TicTacToe {
     }
 
     toggleFreeze() {
+        console.log('this.toggleFreeze');
         this.isFreeze = !this.isFreeze;
+
+        // listeners
         this.buttons.forEach( btn => {
             btn.classList.toggle( 'disabled' );
             btn[ this.isFreeze ? 'removeEventListener' : 'addEventListener' ]( 'click', this.buttonsListener );
         });
+
+        // Blinking player indicator
+        const icon = document.querySelector( `[ data-tictactoe-player-id="${ this.activePlayer.id }" ] .name i` );
+        icon.classList[ this.isFreeze ? 'remove' : 'toggle' ]( 'blink' )
+
     }
 }
