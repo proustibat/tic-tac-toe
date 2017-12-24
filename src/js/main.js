@@ -23,6 +23,10 @@ if ( process.env.NODE_ENV !== 'production' ) {
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
-    new Layout();
-    new TicTacToe();
+    const layout = new Layout();
+    const game = new TicTacToe();
+
+    layout.on( 'restart', () => game.restart() );
+    layout.on( 'reset', () => game.reset() );
+
 } );

@@ -31,5 +31,8 @@
     "build": "node build.js && yarn lint:css && yarn lint:js && webpack --config webpack.prod.js",
     "lint:js": "eslint . --ext .js",
     "lint:css": "csslint . --exclude-list=node_modules/ --config=.csslintrc"
+  },
+  "dependencies": {
+    "events": "1.1.1"
   }
 }

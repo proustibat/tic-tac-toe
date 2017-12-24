@@ -37,7 +37,6 @@ export default class TicTacToe {
         this.buttons = [];
         this.buttonsListener = this.onClick.bind( this );
 
-
         this.initGame();
 
         // Players names and colors
@@ -219,6 +218,21 @@ export default class TicTacToe {
         this.toggleFreeze();
     }
 
+    reset() {
+        this.toggleFreeze();
+        this.players.forEach( player => {
+            player.score = 0;
+            this.updateScore( player );
+        });
+        this.activePlayer = this.players[ 0 ];
+        this.playAgain();
+    }
+
+    restart() {
+        this.toggleFreeze();
+        this.playAgain();
+    }
+
     updateScore( player ) {
         const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
         const $score = $joystick.querySelector( '.score' );
@@ -226,7 +240,6 @@ export default class TicTacToe {
     }
 
     toggleFreeze() {
-        console.log('this.toggleFreeze');
         this.isFreeze = !this.isFreeze;
 
         // listeners
