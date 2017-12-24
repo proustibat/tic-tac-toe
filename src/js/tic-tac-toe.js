@@ -209,7 +209,9 @@ export default class TicTacToe {
 
         // Every cells are played
         if ( this.cells.every( cell => cell.isActive === false ) ) {
-            this.layout.info( 'The game is over with no winner!', 5000 );
+            this.toggleFreeze();
+            this.layout.info( 'The game is over with no winner!', 5000, this.playAgain.bind( this ) );
+            return false;
         }
     }
 
