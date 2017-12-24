@@ -26,20 +26,20 @@ export default class Layout {
         Object.freeze( this );
     }
 
-    alert( msg, time ) {
-        this.toast( msg, time, 'red accent-4' );
+    alert( msg, time, onComplete = () => {} ) {
+        this.toast( msg, time, 'red accent-4', onComplete );
     }
 
-    info( msg, time ) {
-        this.toast( msg, time, 'green accent-4' );
+    info( msg, time, onComplete = () => {} ) {
+        this.toast( msg, time, 'green accent-4', onComplete );
     }
 
-    toast( msg, time = 3000, colorClass = null ) {
+    toast( msg, time = 3000, colorClass = null, onComplete = () => {} ) {
         if ( !msg || typeof msg !== 'string' ) {
             return false;
         }
         // message, displayLength, className, completeCallback
-        Materialize.toast( msg, time, colorClass ? colorClass : '' );
+        Materialize.toast( msg, time, colorClass ? colorClass : '', onComplete );
     }
 
 }

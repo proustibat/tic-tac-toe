@@ -6,11 +6,13 @@ const defaultOptions = {
     players: [{
         id:     'player-1',
         pseudo: 'Jane',
-        color:  '#57c5ff'
+        color:  '#57c5ff',
+        score: 0
     }, {
         id:     'player-2',
         pseudo: 'John',
-        color:  '#ff3d5b'
+        color:  '#ff3d5b',
+        score: 0
     }]
 };
 
@@ -30,7 +32,21 @@ export default class TicTacToe {
         this.canvas = document.querySelector( '.game-canvas' );
         this.ctx = this.canvas.getContext('2d');
 
+        this.isFreeze = true;
+
+        this.buttons = [];
+        this.buttonsListener = this.onClick.bind( this );
+
+
         this.initGame();
+
+        // Players names and colors
+        this.initPlayers();
+
+        // Let's start with the first player in the list
+        this.turnPlayerTo( this.players[ 0 ], true );
+
+        this.toggleFreeze();
     }
 
     initGame() {
@@ -50,12 +66,6 @@ export default class TicTacToe {
 
         // Calculate cells sizes and coordinates
         this.initCells();
-
-        // Players names and colors
-        this.initPlayers();
-
-        // Let's start with the first player in the list
-        this.turnPlayerTo( this.players[ 0 ], true );
     }
 
     initCells() {
@@ -107,15 +117,20 @@ export default class TicTacToe {
             const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
             const $name = $joystick.querySelector( '.name' );
             $name.firstChild.nodeValue = ` ${ player.pseudo }`;
+
             const symbol = document.createElement('i');
             symbol.style.width = '10px';
             symbol.style.height = '10px';
             symbol.style.display = 'inline-block';
             symbol.style.verticalAlign = 'middle';
             symbol.style.borderRadius = '5px';
-
             symbol.style.backgroundColor = player.color;
             $name.prepend(symbol);
+
+            const score = document.createElement('span');
+            score.setAttribute('class', 'score badge grey-text text-lighten-5');
+            score.appendChild( document.createTextNode(`${ player.score }`) );
+            $name.appendChild(score);
 
             this.initJoystick( player.id, $joystick );
         });
@@ -134,12 +149,12 @@ export default class TicTacToe {
             btn.appendChild( icon );
             icon.setAttribute( 'class', 'material-icons grey-text text-darken-4' );
             icon.append( document.createTextNode( 'fiber_manual_record' ) );
-            btn.setAttribute( 'class', 'btn waves-effect grey lighten-4' );
+            btn.setAttribute( 'class', 'btn waves-effect grey lighten-4 disabled' );
             btn.setAttribute( 'data-cell-index', i );
             btn.setAttribute( 'data-player-id', playerId );
-            btn.addEventListener( 'click', this.onClick.bind( this ) );
+            // btn.addEventListener( 'click', this.onClick.bind( this ) );
             grid.appendChild( btn );
-            return btn;
+            this.buttons.push( btn );
         });
         container.appendChild( grid );
     }
@@ -177,7 +192,6 @@ export default class TicTacToe {
         cellClicked.ownedBy = playerId;
         this.checkEndGame();
         this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
-
     }
 
     fillCell( color, coordinates, borderColor = '#bdbdbd' ) {
@@ -190,12 +204,35 @@ export default class TicTacToe {
     checkEndGame() {
         // Check if the active player is the winner in each line, column or diagonal
         if ( this.winningCells.some( arr => arr.some( cells => cells.every( cell => cell.ownedBy === this.activePlayer.id ) ) ) ) {
-            this.layout.info( `${ this.activePlayer.pseudo } wins!`, 5000 );
+            this.toggleFreeze();
+            this.activePlayer.score ++;
+            this.updateScore( this.activePlayer );
+            this.layout.info( `${ this.activePlayer.pseudo } wins!`, 5000, this.playAgain.bind( this ) );
+            return false;
         }
 
         // Every cells are played
         if ( this.cells.every( cell => cell.isActive === false ) ) {
             this.layout.info( 'The game is over with no winner!', 5000 );
         }
+    }
+
+    playAgain() {
+        this.initGame();
+        this.toggleFreeze();
+    }
+
+    updateScore( player ) {
+        const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
+        const $score = $joystick.querySelector( '.score' );
+        $score.firstChild.nodeValue = `${ player.score }`;
+    }
+
+    toggleFreeze() {
+        this.isFreeze = !this.isFreeze;
+        this.buttons.forEach( btn => {
+            btn.classList.toggle( 'disabled' );
+            btn[ this.isFreeze ? 'removeEventListener' : 'addEventListener' ]( 'click', this.buttonsListener );
+        });
     }
 }
