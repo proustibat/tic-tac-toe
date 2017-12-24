@@ -38,12 +38,18 @@ export default class TicTacToe {
         this.canvas.width = this.canvas.height = this.canvasSize;
         this.canvas.parentElement.style.width = this.canvas.parentElement.style.height = `${ this.canvasSize }px`;
 
+        // Declarations of every cells
+        this.cells = [];
+        this.diagonals = [ [], [] ];
+        this.lines = [];
+        this.columns = [];
+        for ( let i = 0; i < this.cellsEdge; i++ ) {
+            this.lines.push( [] );
+            this.columns.push( [] );
+        }
+
         // Calculate cells sizes and coordinates
-        this.initCellsSizes();
-
-
-        // Grid colors for the beginning
-        // this.initCellsColors();
+        this.initCells();
 
         // Players names and colors
         this.initPlayers();
@@ -52,29 +58,47 @@ export default class TicTacToe {
         this.turnPlayerTo( this.players[ 0 ], true );
     }
 
-    initCellsSizes() {
+    initCells() {
         const edge = Math.round( this.canvasSize / this.cellsEdge );
 
-        this.cells = [];
+        // Create every cells
         for ( let i = 0, l = Math.pow( this.cellsEdge, 2 ), row = 0, col; i < l; i++ ) {
-
             col = i % this.cellsEdge;
 
             // Calculate coordinates
-            this.cells.push({
+            const cell = {
                 isActive: true,
                 ownedBy: null,
                 coordinates: [ edge * col, edge * row, edge, edge ],
-            });
+            };
 
-            row = col === this.cellsEdge - 1 ? row += 1 : row;
+            this.saveCell( cell, row, col );
+
+            // Update row number
+            row = col === this.cellsEdge - 1 ? row + 1 : row;
 
             // Init color of the cell
-            let initColor = '#fafafa';
-            if ( i % 2 ) {
-                initColor = '#eeeeee';
-            }
-            this.fillCell( initColor, this.cells[ this.cells.length - 1 ].coordinates );
+            this.fillCell( i % 2 ? '#eeeeee' : '#fafafa', cell.coordinates );
+        }
+
+        this.winningCells = [ this.lines, this.columns, this.diagonals ];
+    }
+
+    saveCell( cell, row, col ) {
+        // Save cell into array of all cells
+        this.cells.push( cell );
+
+        // Save cell into array of lines, array of columns and array of diagonals
+        this.lines[ row ].push( cell );
+        this.columns[ col ].push( cell );
+
+        // Save cell into array of the main diagonal
+        if ( row === col ) {
+            this.diagonals[ 0 ].push( cell );
+        }
+        // Save cell into array of the second diagonal
+        if ( row + col === this.cellsEdge - 1 ) {
+            this.diagonals[ 1 ].push( cell ) ;
         }
     }
 
@@ -142,8 +166,9 @@ export default class TicTacToe {
             if ( cellClicked.isActive ) {
                 this.fillCell( this.activePlayer.color, cellClicked.coordinates, '#212121' );
                 cellClicked.isActive = false;
-                this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
+                cellClicked.ownedBy = playerId;
                 this.checkEndGame();
+                this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
             }
             else {
                 this.layout.alert( 'Cell is already taken!' )
@@ -163,9 +188,14 @@ export default class TicTacToe {
     }
 
     checkEndGame() {
-        // TODO: scores
+        // Check if the active player is the winner in each line, column or diagonal
+        if ( this.winningCells.some( arr => arr.some( cells => cells.every( cell => cell.ownedBy === this.activePlayer.id ) ) ) ) {
+            this.layout.info( `${ this.activePlayer.pseudo } wins!`, 5000 );
+        }
+
+        // Every cells are played
         if ( this.cells.every( cell => cell.isActive === false ) ) {
-            this.layout.info( 'The game is over!', 5000 );
+            this.layout.info( 'The game is over with no winner!', 5000 );
         }
     }
 }
