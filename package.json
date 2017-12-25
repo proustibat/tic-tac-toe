@@ -34,6 +34,7 @@
     "lint:css": "csslint . --exclude-list=node_modules,src/css/shame.css --config=.csslintrc"
   },
   "dependencies": {
-    "events": "1.1.1"
+    "events": "1.1.1",
+    "spectrum-colorpicker": "1.8.0"
   }
 }

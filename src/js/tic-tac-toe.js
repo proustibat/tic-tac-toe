@@ -116,7 +116,7 @@ export default class TicTacToe {
     }
 
     initPlayers() {
-        this.players.forEach( player => {
+        this.layout.playerColors = this.players.map( player => {
             const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
             const $name = $joystick.querySelector( '.name' );
 
@@ -125,6 +125,8 @@ export default class TicTacToe {
             this.initPlayerScore( $name, player );
 
             this.initJoystick( player.id, $joystick );
+
+            return player.color;
         });
     }
 

@@ -84,6 +84,24 @@ h1 .score {
     padding: 0;
 }
 
+/*******************************
+ *  MODAL SETTINGS
+ *******************************/
+
+.input-color {
+    margin-top: 2rem;
+}
+.input-color .material-icons {
+    position: relative;
+}
+.input-color label {
+    transform: translateY(-.5rem)
+}
+.input-color .picker-color-replacer {
+    position: absolute;
+    top: 1rem;
+}
+
 .modal .modal-footer {
     text-align: center;
 }
