@@ -1,9 +1,10 @@
-JavaScript: true
-Ruby: true
-Python: false
-PHP: false
+languages:
+  JavaScript: true
+  Ruby: true
+  Python: false
+  PHP: false
 
-exclude_paths:
+exclude_patterns:
 - tests/**/*
 - node_modules/**/*
 - webpack.*.js
@@ -25,7 +26,6 @@ plugins:
         enabled: false
       universal-selector:
         enabled: false
-engines:
   duplication:
     enabled: true
 
