@@ -71,29 +71,16 @@ export default class Layout extends EventEmitter {
 
     onSubmitModal( e ) {
         e.preventDefault();
-        const form = this.modalSettings[0].querySelector('form');
-        console.log( form );
+        const form = this.modalSettings[0].querySelector( 'form' );
 
-        // player 1 settings
-        const player1 = {};
-        const player1Name = form.querySelector( '#player-1-pseudo' ).value;
-        if ( player1Name.length > 0 ) {
-            player1.pseudo = player1Name;
-        }
-        const player1Color = form.querySelector( '#player-1-color' ).value;
-        if ( player1Color.length > 0 ) {
-            player1.color = player1Color;
-        }
+        // Players info
+        let players = [ {}, {} ];
+        for ( let i = 0; i < 2; i++ ) {
+            const playerName = form.querySelector( `#player-${ i + 1 }-pseudo` ).value;
+            const playerColor = form.querySelector( `#player-${ i + 1 }-color` ).value;
 
-        // player 2 settings
-        const player2 = {};
-        const player2Name = form.querySelector( '#player-2-pseudo' ).value;
-        if ( player2Name.length > 0 ) {
-            player2.pseudo = player2Name;
-        }
-        const player2Color = form.querySelector( '#player-2-color' ).value;
-        if ( player2Color.length > 0 ) {
-            player2.color = player2Color;
+            players[ i ].pseudo = playerName;
+            players[ i ].color = playerColor;
         }
 
         // Playground
@@ -102,8 +89,8 @@ export default class Layout extends EventEmitter {
         form.reset();
 
         this.emit( 'submit:settings', {
-            players: [player1, player2],
-            playgroundSize: playgroundSize
+            players,
+            playgroundSize
         });
 
         this.modalSettings.modal( 'close' );
