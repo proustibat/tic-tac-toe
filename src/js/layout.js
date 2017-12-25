@@ -47,15 +47,12 @@ export default class Layout extends EventEmitter {
             // startingTop: '4%', // Starting top style attribute
             // endingTop: '10%', // Ending top style attribute
             // Callback for Modal open. Modal and trigger parameters available.
-            ready: ( modal, trigger ) => {
-                console.log( 'Modal Ready' );
-                // console.log( modal, trigger );
-                document.querySelector( '.modal-footer .btn[type=submit]' ).addEventListener( 'click', this.submitListener  );
+            ready: () => {
+                document.querySelector( '.modal-footer .btn[type=submit]' ).addEventListener( 'click', this.submitListener );
             },
             // Callback for Modal close
             complete: () => {
-                console.log( 'Modal Closed' );
-                document.querySelector( '.modal-footer .btn[type=submit]' ).removeEventListener( 'click', this.submitListener  );
+                document.querySelector( '.modal-footer .btn[type=submit]' ).removeEventListener( 'click', this.submitListener );
             }
         });
 
@@ -71,7 +68,7 @@ export default class Layout extends EventEmitter {
 
     onSubmitModal( e ) {
         e.preventDefault();
-        const form = this.modalSettings[0].querySelector( 'form' );
+        const form = this.modalSettings[ 0 ].querySelector( 'form' );
 
         // Players info
         let players = [ {}, {} ];

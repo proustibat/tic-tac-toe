@@ -15,16 +15,6 @@ body {
     font-family: 'Sedgwick Ave Display', cursive;
 }
 
-/* csslint ignore:start */
-#toast-container {
-    min-width: 100%;
-    bottom: auto;
-    left: 0;
-    right: 0;
-    top: 0;
-}
-/* csslint ignore:end */
-
 .nav-wrapper li a {
     font-size: 1.4rem;
     padding: .5rem 1rem .2rem 2rem;

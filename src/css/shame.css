@@ -43,3 +43,19 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
     box-shadow: 0 1px 0 0 #212121;
 }
 /* csslint ignore:end */
+
+
+
+/*******************************
+ *  TOASTS
+ *******************************/
+
+/* csslint ignore:start */
+#toast-container {
+    min-width: 100%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+/* csslint ignore:end */

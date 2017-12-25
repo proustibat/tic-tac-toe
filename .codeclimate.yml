@@ -9,6 +9,7 @@ exclude_paths:
 - webpack.*.js
 - karma.conf.js
 - coverage/
+- src/css/shame.css
 
 plugins:
   eslint:
