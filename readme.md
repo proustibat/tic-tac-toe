@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/proustibat/tic-tac-toe.svg?branch=master)](https://travis-ci.org/proustibat/tic-tac-toe) <a href='https://sonarcloud.io/dashboard?id=prstbt.tictactoe'><img src='https://sonarcloud.io/api/badges/gate?key=prstbt.tictactoe' alt='Sonar quality gate'/></a> [![Code Climate](https://img.shields.io/codeclimate/maintainability/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe/maintainability) [![Code Climate](https://img.shields.io/codeclimate/issues/github/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe/issues) [![Code Climate](https://img.shields.io/codeclimate/c/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe) 
 
-<a href='https://david-dm.org/proustibat/tic-tac-toe'><img src='https://david-dm.org/proustibat/tic-tac-toe/status.svg' alt='dependencies Status'/></a> <a href='https://david-dm.org/proustibat/tic-tac-toe?type=dev'><img src='https://david-dm.org/proustibat/tic-tac-toe/dev-status.svg' alt='devDependencies Status'/> <a href='https://github.com/proustibat/tictactoe/blob/master/LICENSE.md'><img src='https://img.shields.io/github/license/proustibat/tictactoe.svg' alt='GitHub license'/></a>
+<a href='https://david-dm.org/proustibat/tic-tac-toe'><img src='https://david-dm.org/proustibat/tic-tac-toe/status.svg' alt='dependencies Status'/></a> <a href='https://david-dm.org/proustibat/tic-tac-toe?type=dev'><img src='https://david-dm.org/proustibat/tic-tac-toe/dev-status.svg' alt='devDependencies Status'/> <a href='https://github.com/proustibat/tic-tac-toe/blob/master/LICENSE.md'><img src='https://img.shields.io/github/license/proustibat/tic-tac-toe.svg' alt='GitHub license'/></a>
 
    
 # TIC TAC TOE 
@@ -36,7 +36,13 @@ yarn build
 How simple or complicated the control flow of the application is. 
 
 
-[![Complexity](https://sonarcloud.io/api/badges/measure?key=prstbt.tictactoe&metric=complexity)](https://sonarcloud.io/component_measures?id=prstbt.tictactoe&metric=complexity) 
+[![Complexity](https://sonarcloud.io/api/badges/measure?key=prstbt.
+
+
+
+
+
+toe&metric=complexity)](https://sonarcloud.io/component_measures?id=prstbt.tictactoe&metric=complexity) 
 [![Complexity per file](https://sonarcloud.io/api/badges/measure?key=prstbt.tictactoe&metric=file_complexity)](https://sonarcloud.io/component_measures?id=prstbt.tictactoe&metric=file_complexity)
 [![Cognitive Complexity](https://sonarcloud.io/api/badges/measure?key=prstbt.tictactoe&metric=cognitive_complexity)](https://sonarcloud.io/component_measures?id=prstbt.tictactoe&metric=cognitive_complexity)
 
