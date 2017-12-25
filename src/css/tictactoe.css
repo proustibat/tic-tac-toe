@@ -100,6 +100,7 @@ h1 .score {
 .input-color .picker-color-replacer {
     position: absolute;
     top: 1rem;
+    border: none;
 }
 
 .modal .modal-footer {

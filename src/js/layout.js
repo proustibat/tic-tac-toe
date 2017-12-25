@@ -52,8 +52,7 @@ export default class Layout extends EventEmitter {
             // endingTop: '10%', // Ending top style attribute
             // Callback for Modal open. Modal and trigger parameters available.
             ready: () => {
-                console.log(this);
-                [...$( '.picker-color' )].forEach( ( input, i ) => {
+                [ ...$( '.picker-color' ) ].forEach( ( input, i ) => {
                     $( input ).spectrum({
                         color: this.playerColors[ i ],
                         flat: false,
