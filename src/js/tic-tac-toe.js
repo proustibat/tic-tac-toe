@@ -5,12 +5,12 @@ const defaultOptions = {
     cellsEdge: 3,
     players: [{
         id:     'player-1',
-        pseudo: 'Jane',
+        pseudo: 'Player 1',
         color:  '#57c5ff',
         score: 0
     }, {
         id:     'player-2',
-        pseudo: 'John',
+        pseudo: 'Player 2',
         color:  '#ff3d5b',
         score: 0
     }]

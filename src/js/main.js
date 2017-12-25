@@ -15,14 +15,7 @@ if ( process.env.NODE_ENV !== 'production' ) {
 document.addEventListener( 'DOMContentLoaded', () => {
 
     const layout = new Layout();
-    const game = new TicTacToe({
-        cellsEdge: 3,
-        players: [{
-            pseudo: 'Proustibat'
-        }, {
-            pseudo: 'Kal-el'
-        }]
-    });
+    const game = new TicTacToe();
 
     layout.on( 'submit:settings', data => game.newGameWith( data ) );
     layout.on( 'restart', () => game.restart() );

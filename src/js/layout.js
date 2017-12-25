@@ -11,13 +11,9 @@ export default class Layout extends EventEmitter {
     }
 
     init() {
-
-        this._playerColors = [ '#00ff00', '#ff00ff' ];
-
+        this._playerColors = [ '#fff', '#fff' ];
         this.initMenu();
-
         this.initModal();
-
         return this;
     }
 
@@ -35,21 +31,16 @@ export default class Layout extends EventEmitter {
         //$('.collapsible').collapsible();
 
         // Clicks on items
-        const buttons = document.querySelectorAll( '.nav-wrapper .btn-js' );
-        buttons.forEach( btn => btn.addEventListener( 'click', this.onMenuItem.bind( this ) ) );
+        document.querySelectorAll( '.nav-wrapper .btn-js' ).forEach( btn => btn.addEventListener( 'click', this.onMenuItem.bind( this ) ) );
     }
 
     initModal() {
-        // the "href" attribute of the modal trigger must
-        // specify the modal ID that wants to be triggered
         this.submitListener = this.onSubmitModal.bind( this );
+        this.resetListener = this.onResetModal.bind( this );
         this.modalSettings = $( '.modal-settings' ).modal({
-            // dismissible: true, // Modal can be dismissed by clicking outside of the modal
             opacity: 0.9, // Opacity of modal background
-            // inDuration: 300, // Transition in duration
-            // outDuration: 200, // Transition out duration
-            // startingTop: '4%', // Starting top style attribute
-            // endingTop: '10%', // Ending top style attribute
+            inDuration: 200, // Transition in duration
+            outDuration: 200, // Transition out duration
             // Callback for Modal open. Modal and trigger parameters available.
             ready: () => {
                 [ ...$( '.picker-color' ) ].forEach( ( input, i ) => {
@@ -69,13 +60,20 @@ export default class Layout extends EventEmitter {
                     });
                 } );
                 document.querySelector( '.modal-footer .btn[type=submit]' ).addEventListener( 'click', this.submitListener );
+                document.querySelector( '.modal-footer .btn[type=reset]' ).addEventListener( 'click', this.resetListener );
             },
             // Callback for Modal close
             complete: () => {
                 $( '.picker-color' ).spectrum( 'destroy' );
                 document.querySelector( '.modal-footer .btn[type=submit]' ).removeEventListener( 'click', this.submitListener );
+                document.querySelector( '.modal-footer .btn[type=reset]' ).removeEventListener( 'click', this.resetListener );
             }
         });
+    }
+
+    onResetModal() {
+        const pickerColors = this.modalSettings[ 0 ].querySelectorAll( 'form .picker-color' );
+        pickerColors.forEach( ( input, i ) => $( input ).spectrum( 'set', this.playerColors[ i ] ) );
     }
 
     onSubmitModal( e ) {
