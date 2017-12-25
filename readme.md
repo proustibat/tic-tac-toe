@@ -1,4 +1,4 @@
-[![GitHub top language](https://img.shields.io/github/languages/top/proustibat/tic-tac-toe.svg)]()
+[![GitHub top language](https://img.shields.io/github/languages/top/proustibat/tic-tac-toe.svg)](https://github.com/proustibat/tic-tac-toe)
 
 [![Build Status](https://travis-ci.org/proustibat/tic-tac-toe.svg?branch=master)](https://travis-ci.org/proustibat/tic-tac-toe) <a href='https://sonarcloud.io/dashboard?id=prstbt.tictactoe'><img src='https://sonarcloud.io/api/badges/gate?key=prstbt.tictactoe' alt='Sonar quality gate'/></a> [![Code Climate](https://img.shields.io/codeclimate/maintainability/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe/maintainability) [![Code Climate](https://img.shields.io/codeclimate/issues/github/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe/issues) [![Code Climate](https://img.shields.io/codeclimate/c/proustibat/tic-tac-toe.svg)](https://codeclimate.com/github/proustibat/tic-tac-toe) 
 
