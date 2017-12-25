@@ -1,9 +1,3 @@
-// Materialize-css requires jQuery
-import $ from 'jquery';
-
-import 'spectrum-colorpicker/spectrum.css';
-import 'spectrum-colorpicker/spectrum.js';
-
 import EventEmitter from 'events';
 
 export default class Layout extends EventEmitter {

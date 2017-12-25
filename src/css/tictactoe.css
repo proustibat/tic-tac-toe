@@ -103,6 +103,10 @@ h1 .score {
     border: none;
 }
 
-.modal .modal-footer {
+.sp-container {
+    border: none;
+}
+
+.modal-settings .modal-footer {
     text-align: center;
 }

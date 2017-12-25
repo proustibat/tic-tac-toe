@@ -70,6 +70,7 @@
     "object-curly-spacing": [2, "always"]
   },
   "globals": {
+    "$": false,
     "require": false,
     "module":  false,
     "console": false,
