@@ -26,7 +26,7 @@ before_script:
 
 script:
   - yarn build
-  - sonar-scanner
+  - sonar-scanner -X
 
 
 # Here we want to check out where we are.
