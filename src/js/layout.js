@@ -11,10 +11,17 @@ export default class Layout extends EventEmitter {
     }
 
     init() {
+
         this._playerColors = [ '#00ff00', '#ff00ff' ];
-        /**
-         *  MENU
-         */
+
+        this.initMenu();
+
+        this.initModal();
+
+        return this;
+    }
+
+    initMenu() {
         // Initialize collapse button
         $( '.button-collapse' ).sideNav({
             menuWidth: 300,
@@ -30,10 +37,9 @@ export default class Layout extends EventEmitter {
         // Clicks on items
         const buttons = document.querySelectorAll( '.nav-wrapper .btn-js' );
         buttons.forEach( btn => btn.addEventListener( 'click', this.onMenuItem.bind( this ) ) );
+    }
 
-        /**
-         *  MODAL
-         */
+    initModal() {
         // the "href" attribute of the modal trigger must
         // specify the modal ID that wants to be triggered
         this.submitListener = this.onSubmitModal.bind( this );
@@ -70,16 +76,7 @@ export default class Layout extends EventEmitter {
                 document.querySelector( '.modal-footer .btn[type=submit]' ).removeEventListener( 'click', this.submitListener );
             }
         });
-
-        // prevents new properties from being added to the singleton;
-        // prevents existing properties from being removed;
-        // and prevents existing properties, or their enumerability, configurability, or writability,
-        // from being changed,
-        // it also prevents the prototype from being changed
-        // return Object.freeze( this );
-        return this;
     }
-
 
     onSubmitModal( e ) {
         e.preventDefault();
