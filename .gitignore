@@ -9,4 +9,3 @@ dist
 node_modules
 src/js/AppInfo.js
 .scannerwork
-sonar-project.properties
