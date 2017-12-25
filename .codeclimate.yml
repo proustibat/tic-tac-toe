@@ -25,6 +25,9 @@ plugins:
         enabled: false
       universal-selector:
         enabled: false
+engines:
+  duplication:
+    enabled: true
 
 version: "2"
 checks:
