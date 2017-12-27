@@ -55,7 +55,7 @@ html, body, .block {
     background-color: #0be370;
     background-image: linear-gradient(to bottom,#32fc8d 0,#0be370 100%);
     border: 1px solid #14c767;
-    padding: 0px 5px 3px 4px;
+    padding: 0 5px 3px 4px;
     text-decoration: none;
     display: inline-block;
     border-radius: 3px;
