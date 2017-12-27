@@ -15,16 +15,64 @@ body {
     font-family: 'Sedgwick Ave Display', cursive;
 }
 
+/* Only necessary for window height sized blocks.*/
+html, body, .block {
+   height: 100%;
+}
+
+.main-section {
+    padding: 3rem 0;
+}
+
 .nav-wrapper li a {
     font-size: 1.4rem;
     padding: .5rem 1rem .2rem 2rem;
     height: auto;
 }
 
+.nav-wrapper li a:hover {
+    background: none;
+}
+
+
 .menu-title {
     text-align: center;
     font-size: 2rem;
     padding: 2rem 0 1rem;
+}
+
+.page-footer .btn {
+    margin-top: .7rem;
+}
+
+.page-footer .social-links {
+    margin-top: 1.3rem;
+}
+
+.page-footer .medium-btn {
+    font: 700 11px/14px 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    overflow: hidden;
+    background-color: #0be370;
+    background-image: linear-gradient(to bottom,#32fc8d 0,#0be370 100%);
+    border: 1px solid #14c767;
+    padding: 0px 5px 3px 4px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 3px;
+    margin: .7rem 0;
+    color: #333;
+    height: 20px;
+}
+
+
+.page-footer .medium-btn:hover {
+    text-decoration: none;
+    background-image: linear-gradient(to bottom,#0be370 0,#14c767 100%);
+}
+
+.page-footer .medium-btn .material-icons {
+    font-size: 1rem;
+    margin-right: .4rem;
 }
 
 /*******************************
@@ -48,7 +96,7 @@ body {
 
 .joysticks {
     display: flex;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .players-joystick {
