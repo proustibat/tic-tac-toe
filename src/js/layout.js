@@ -42,33 +42,37 @@ export default class Layout extends EventEmitter {
             inDuration: 200, // Transition in duration
             outDuration: 200, // Transition out duration
             // Callback for Modal open. Modal and trigger parameters available.
-            ready: () => {
-                [ ...$( '.picker-color' ) ].forEach( ( input, i ) => {
-                    $( input ).spectrum({
-                        color: this.playerColors[ i ],
-                        flat: false,
-                        allowEmpty:false,
-                        showInitial: false,
-                        showInput: true,
-                        chooseText: 'I want this color',
-                        cancelText: 'Get out of here',
-                        replacerClassName: 'picker-color-replacer',
-                        preferredFormat: 'hex3',
-                        // show: tinycolor => {
-                        //     console.log( 'picker-color ', tinycolor );
-                        // }
-                    });
-                } );
-                document.querySelector( '.modal-footer .btn[type=submit]' ).addEventListener( 'click', this.submitListener );
-                document.querySelector( '.modal-footer .btn[type=reset]' ).addEventListener( 'click', this.resetListener );
-            },
+            ready: this.onModalOpen.bind( this ),
             // Callback for Modal close
-            complete: () => {
-                $( '.picker-color' ).spectrum( 'destroy' );
-                document.querySelector( '.modal-footer .btn[type=submit]' ).removeEventListener( 'click', this.submitListener );
-                document.querySelector( '.modal-footer .btn[type=reset]' ).removeEventListener( 'click', this.resetListener );
-            }
+            complete: this.onModalClose.bind( this )
         });
+    }
+
+    onModalOpen() {
+        [ ...$( '.picker-color' ) ].forEach( ( input, i ) => {
+            $( input ).spectrum({
+                color: this.playerColors[ i ],
+                flat: false,
+                allowEmpty:false,
+                showInitial: false,
+                showInput: true,
+                chooseText: 'I want this color',
+                cancelText: 'Get out of here',
+                replacerClassName: 'picker-color-replacer',
+                preferredFormat: 'hex3',
+                // show: tinycolor => {
+                //     console.log( 'picker-color ', tinycolor );
+                // }
+            });
+        } );
+        document.querySelector( '.modal-footer .btn[type=submit]' ).addEventListener( 'click', this.submitListener );
+        document.querySelector( '.modal-footer .btn[type=reset]' ).addEventListener( 'click', this.resetListener );
+    }
+
+    onModalClose() {
+        $( '.picker-color' ).spectrum( 'destroy' );
+        document.querySelector( '.modal-footer .btn[type=submit]' ).removeEventListener( 'click', this.submitListener );
+        document.querySelector( '.modal-footer .btn[type=reset]' ).removeEventListener( 'click', this.resetListener );
     }
 
     onResetModal() {
@@ -119,14 +123,14 @@ export default class Layout extends EventEmitter {
     }
 
     alert( msg, time, onComplete = () => {} ) {
-        this.toast( msg, time, 'red accent-4', onComplete );
+        Layout.toast( msg, time, 'red accent-4', onComplete );
     }
 
     info( msg, time, onComplete = () => {} ) {
-        this.toast( msg, time, 'green accent-4', onComplete );
+        Layout.toast( msg, time, 'green accent-4', onComplete );
     }
 
-    toast( msg, time = 3000, colorClass = null, onComplete = () => {} ) {
+    static toast( msg, time = 3000, colorClass = null, onComplete = () => {} ) {
         if ( !msg || typeof msg !== 'string' ) {
             return false;
         }
