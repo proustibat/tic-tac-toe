@@ -121,12 +121,19 @@ html, body, .block {
     font-size: 1.8rem;
 }
 
-h1 {
+.name {
     font-size: 1.2rem;
-    margin: 0.5rem .2rem 1rem;
+    margin: .5rem .2rem .8rem;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.name > i {
+    margin-right: .5rem;
 }
 
-h1 .score {
+.name .score {
     text-align: right;
     min-width: auto;
     padding: 0;

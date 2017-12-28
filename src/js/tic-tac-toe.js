@@ -303,7 +303,9 @@ export default class TicTacToe {
     newGameWith( data ) {
         let players = [];
         for ( let i = 0, l = defaultOptions.players.length; i < l; i++ ) {
-            players.push( Object.assign( {}, this.players[ i ], data.players[ i ] ) );
+            const player = Object.assign( {}, this.players[ i ], data.players[ i ] );
+            player.score = 0;
+            players.push( player );
         }
         this.players = players;
 
