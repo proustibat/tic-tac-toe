@@ -11,50 +11,52 @@
 </head>
 <body class="grey lighten-5 grey-text text-darken-4">
 
-    <nav class="black white-text" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Tic Tac Toe</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a class="btn-js btn-settings" data-role="settings">Settings</a></li>
-                <li><a class="btn-js btn-restart" data-role="restart">Restart the current game</a></li>
-                <li><a class="btn-js btn-restart" data-role="reset">Reset all</a></li>
-            </ul>
-            <ul id="nav-mobile" class="side-nav">
-                <li class="menu-title grey darken-4">MENU</li>
-                <li><a class="btn-js btn-settings" data-role="settings">Settings</a></li>
-                <li><a class="btn-js btn-restart" data-role="restart">Restart the current game</a></li>
-                <li><a class="btn-js btn-restart" data-role="reset">Reset all</a></li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
-    <div class="container">
-
-        <div class="section main-section">
-
-            <div class='app'>
-
-                <div class="canvas-container z-depth-5">
-                    <canvas class="game-canvas"></canvas>
-                </div>
-
-                <div class="joysticks">
-                    <div class="players-joystick grey darken-4 grey-text text-darken-4" data-tictactoe-player-id="player-1">
-                        <h1 class="name grey-text text-lighten-5">Player 1</h1>
-                    </div>
-                    <div class="players-joystick grey darken-4 grey-text text-darken-4" data-tictactoe-player-id="player-2">
-                        <h1 class="name grey-text text-lighten-5">Player 2</h1>
-                    </div>
-                </div>
-
+    <div class="main-container">
+        <nav class="black white-text" role="navigation">
+            <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Tic Tac Toe</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a class="btn-js btn-settings" data-role="settings">Settings</a></li>
+                    <li><a class="btn-js btn-restart" data-role="restart">Restart the current game</a></li>
+                    <li><a class="btn-js btn-restart" data-role="reset">Reset all</a></li>
+                </ul>
+                <ul id="nav-mobile" class="side-nav">
+                    <li class="menu-title grey darken-4">MENU</li>
+                    <li><a class="btn-js btn-settings" data-role="settings">Settings</a></li>
+                    <li><a class="btn-js btn-restart" data-role="restart">Restart the current game</a></li>
+                    <li><a class="btn-js btn-restart" data-role="reset">Reset all</a></li>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
+        </nav>
+        <div class="container">
 
-        </div>
+                <div class="section main-section">
+
+                    <div class='app'>
+
+                        <div class="canvas-container z-depth-5">
+                            <canvas class="game-canvas"></canvas>
+                        </div>
+
+                        <div class="joysticks">
+                            <div class="players-joystick grey darken-4 grey-text text-darken-4" data-tictactoe-player-id="player-1">
+                                <h1 class="name grey-text text-lighten-5">Player 1</h1>
+                            </div>
+                            <div class="players-joystick grey darken-4 grey-text text-darken-4" data-tictactoe-player-id="player-2">
+                                <h1 class="name grey-text text-lighten-5">Player 2</h1>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
     </div>
 
     <footer class="page-footer grey lighten-2 grey-text text-darken-4">
         <div class="container">
             <div class="row">
-                <div class="col s5 m4 push-s1">
+                <div class="col s12 m4">
                     <h5>Tic Tac Toe</h5>
                     <ul>
                         <li><a class="btn waves-effect waves-light grey darken-4" href="https://github.com/proustibat/tic-tac-toe" target="_blank">Github Source</a></li>
@@ -63,7 +65,7 @@
                         <li><a class="btn waves-effect waves-light grey darken-4" href="https://sonarcloud.io/dashboard?id=prstbt.tictactoe" target="_blank">Sonarcloud</a></li>
                     </ul>
                 </div>
-                <div class="col s5 m4 push-s1">
+                <div class="col s12 m4">
                     <h5>Share</h5>
                     <ul>
                         <li><a class="btn waves-effect waves-light grey darken-4" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//proustibat.github.io/tic-tac-toe/">Facebook</a></li>
@@ -72,7 +74,7 @@
                         <li><a class="btn waves-effect waves-light grey darken-4" target="_blank" href="mailto:?&subject=Simple tic tac toe game in ES6&body=Hi!%0A%0ATake%20a%20look%20at%20this%20simple%20tic%20tac%20toe%20game.%20This%20is%20just%20ES6,%20build%20with%20webpack,%20it%20uses%20Materialize%20CSS%20for%20the%20UI%20and%20canvas%20for%20the%20playground.">By Email</a></li>
                     </ul>
                 </div>
-                <div class="col s5 m4 push-s1">
+                <div class="col s12 m4">
                     <h5>Connect</h5>
                     <ul class="social-links">
                         <li><a href="https://twitter.com/proustibat" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @proustibat on Twitter</a></li>
@@ -85,7 +87,7 @@
         <div class="footer-copyright grey-text text-darken-4">
             <div class="container">
                 © 2017 Proustibat.
-                <a class="right grey-text text-darken-4" href="https://github.com/proustibat/tic-tac-toe/blob/master/LICENSE.md">GNU Affero General Public License v3.0</a>
+                <a class="right grey-text text-darken-4" href="https://github.com/proustibat/tic-tac-toe/blob/master/LICENSE.md">GNU Affero General<br/>Public License v3.0</a>
             </div>
         </div>
     </footer>

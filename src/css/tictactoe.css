@@ -41,6 +41,10 @@ html, body, .block {
     padding: 2rem 0 1rem;
 }
 
+.page-footer .col {
+    text-align: center;
+}
+
 .page-footer .btn {
     margin-top: .7rem;
 }
@@ -73,6 +77,12 @@ html, body, .block {
 .page-footer .medium-btn .material-icons {
     font-size: 1rem;
     margin-right: .4rem;
+}
+
+.footer-copyright .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /*******************************
