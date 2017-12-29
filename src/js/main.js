@@ -12,13 +12,13 @@ if ( process.env.NODE_ENV !== 'production' ) {
     console.warn( '⟁ ⚠ Looks like we are in development mode! ⚠ ⟁' );
 }
 
-document.addEventListener( 'DOMContentLoaded', () => {
+HTMLDocument.prototype.ready = (d) => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.addEventListener('DOMContentLoaded', () => resolve(d)) );
 
+document.ready( document ).then( () => {
     const layout = new Layout();
     const game = new TicTacToe();
 
     layout.on( 'submit:settings', data => game.newGameWith( data ) );
     layout.on( 'restart', () => game.restart() );
     layout.on( 'reset', () => game.reset() );
-
-} );
+});
