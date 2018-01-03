@@ -20,8 +20,8 @@ const defaultOptions = {
 export default class TicTacToe extends EventEmitter {
 
     constructor( { canvasSize = defaultOptions.canvasSize, cellsEdge = defaultOptions.cellsEdge, players = defaultOptions.players } = defaultOptions ) {
-
         super();
+        console.info( 'Hello TicTacToe' );
 
         this.layout = new Layout();
 
@@ -50,6 +50,7 @@ export default class TicTacToe extends EventEmitter {
     }
 
     async setup() {
+        console.info( 'TicTacToe.setup' );
         return await new Promise( async( resolve ) => {
             const initializers = [
                 await this.initGame(),
@@ -59,11 +60,13 @@ export default class TicTacToe extends EventEmitter {
                 await this.turnPlayerTo( this.players[ 0 ], true ),
                 await this.toggleFreeze()
             ];
-            await resolve( { game:this, initializers: initializers } );
+            // this.emit( 'ready' );
+            await resolve( { tictactoeInstance:this, initializers: initializers } );
         });
     }
 
     async initGame() {
+        console.info( 'TicTacToe.initGame' );
         return await new Promise( async( resolve ) => {
             // Canvas size
             this.canvas.width = this.canvas.height = await this.canvasSize;
@@ -81,12 +84,13 @@ export default class TicTacToe extends EventEmitter {
 
             // Calculate cells sizes and coordinates
             const initCells = await this.initCells();
-            console.log( 'FINISH INITGAME' );
+            console.info(' -- End', initCells );
             resolve( `initGame [${ initCells }]` );
         });
     }
 
     async initCells() {
+        console.info( 'TicTacToe.initCells' );
         return await new Promise( async( resolve ) => {
 
             await setTimeout( async() => {
@@ -106,7 +110,7 @@ export default class TicTacToe extends EventEmitter {
                     };
 
                     const saveCell = await this.saveCell( cell, row, col );
-                    console.info( saveCell );
+                    console.info(' -- End', saveCell );
                     saveCellsArr.push( saveCell );
 
                     // Update row number
@@ -114,7 +118,7 @@ export default class TicTacToe extends EventEmitter {
 
                     // Init color of the cell
                     const fillCell =  await this.fillCell( i % 2 ? '#eeeeee' : '#fafafa', cell.coordinates );
-                    console.info( fillCell );
+                    console.info(' -- End', fillCell );
                     fillCellsArr.push( fillCell );
                 }
 
@@ -122,7 +126,7 @@ export default class TicTacToe extends EventEmitter {
 
                 resolve( `initCells [${saveCellsArr}, ${saveCellsArr}]` );
 
-            }, 1000);
+            }, 800);
         });
     }
 
@@ -147,7 +151,7 @@ export default class TicTacToe extends EventEmitter {
 
                 resolve( `saveCell [${row}, ${col}]` );
 
-            }, 300);
+            }, 200);
         });
     }
 
@@ -162,11 +166,12 @@ export default class TicTacToe extends EventEmitter {
 
                 resolve( `fillCell ${coordinates}` );
 
-            }, 300);
+            }, 200);
         });
     }
 
     async initPlayers() {
+        console.info( 'TicTacToe.initPlayers' );
         return await new Promise( async( resolve ) => {
             setTimeout( async() => {
                 await Promise.all( this.players.map( async( player ) => {
@@ -175,25 +180,26 @@ export default class TicTacToe extends EventEmitter {
                     const $name = await $joystick.querySelector( '.name' );
 
                     const initPlayerName = await this.initPlayerName( $name, player );
-                    console.log( initPlayerName );
+                    await console.info(' -- End', initPlayerName );
 
                     const initPlayerScore = await this.initPlayerScore( $name, player );
-                    console.log( initPlayerScore );
+                    await console.info(' -- End', initPlayerScore );
 
                     const initJoystick = await this.initPlayerJoystick( player.id, $joystick );
-                    console.log( initJoystick );
+                    await console.info(' -- End', initJoystick );
 
                     return player.color;
                 })).then( ( colors ) => {
-                    console.log('FINISH INITPLAYERS');
+                    console.info(' -- End initPlayers ' );
                     this.layout.playerColors = colors;
                     resolve( 'initPlayers' );
                 });
-            }, 1000);
+            }, 800);
         });
     }
 
     async initPlayerName( $name, player ) {
+        console.info( 'TicTacToe.initPlayerName ', player.pseudo );
         return await new Promise( async( resolve ) => {
             setTimeout( async() => {
 
@@ -218,11 +224,12 @@ export default class TicTacToe extends EventEmitter {
                 await $name.appendChild( document.createTextNode( ` ${ player.pseudo }` ) );
 
                 resolve( `initPlayerName ${player.pseudo}` );
-            }, 2000);
+            }, 800);
         });
     }
 
     async initPlayerScore( $name, player ) {
+        console.info( 'TicTacToe.initPlayerScore ', player.score );
         return await new Promise( async( resolve ) => {
             setTimeout( async() => {
                 let score;
@@ -236,12 +243,12 @@ export default class TicTacToe extends EventEmitter {
                 }
                 await score.appendChild( document.createTextNode(`${ player.score }`) );
                 resolve( `initPlayerScore ${player.pseudo}` );
-            }, 2000);
+            }, 800);
         });
     }
 
     async initPlayerJoystick( playerId, container ) {
-
+        console.info( 'TicTacToe.initPlayerJoystick ', playerId );
         return await new Promise( async( resolve ) => {
             setTimeout( async() => {
                 // grid
@@ -276,29 +283,14 @@ export default class TicTacToe extends EventEmitter {
 
                 resolve( `initJoystick ${playerId}` );
 
-                // return await Promise.all( this.cells.forEach( async( cell, i ) => {
-                //     const btn = await document.createElement( 'a' );
-                //     const icon = await document.createElement( 'i' );
-                //     await btn.appendChild( icon );
-                //     await icon.setAttribute( 'class', 'material-icons grey-text text-darken-4' );
-                //     await icon.append( document.createTextNode( 'fiber_manual_record' ) );
-                //     await btn.setAttribute( 'class', 'btn waves-effect waves-dark grey lighten-4 disabled' );
-                //     await btn.setAttribute( 'data-cell-index', i );
-                //     await btn.setAttribute( 'data-player-id', playerId );
-                //     await grid.appendChild( btn );
-                //     await this.buttons.push( btn );
-                // })).then(() => {
-                //     console.log('FINISH initPlayerJoystick');
-                //     resolve( `initPlayerJoystick ${playerId}` );
-                // });
-
-            }, 2000);
+            }, 800);
         });
 
 
     }
 
     async turnPlayerTo( player, isInit = false ) {
+        console.info( 'TicTacToe.turnPlayerTo ', player.id, player.pseudo );
         return await new Promise( async( resolve ) => {
             setTimeout( async() => {
                 this.activePlayer = player;
@@ -309,19 +301,20 @@ export default class TicTacToe extends EventEmitter {
                         $joystick.querySelector( '.name i' ).classList.toggle( 'blink' );
                         return p;
                     })).then( () => {
-                        console.log('TURN PLAYER TO ', player.pseudo);
+                        console.info(' -- End turnPlayerTo ', player.pseudo );
                         resolve( `turnPlayerTo ${player.pseudo}` );
                     });
                 }
                 else {
-                    console.log('NOT TURN PLAYER TO ', player.pseudo);
+                    console.info(' -- End turnPlayerTo ', player.pseudo, 'not active' );
                     resolve( `NOT TURN TO ${player.pseudo}` );
                 }
-            }, 1000);
+            }, 800);
         });
     }
 
     async onClick( e ) {
+        console.info( 'TicTacToe.onClick' );
         const btn = e.currentTarget;
         const playerId = btn.getAttribute( 'data-player-id' );
         const cellIndex = parseInt( btn.getAttribute( 'data-cell-index' ), 10 );
@@ -345,29 +338,38 @@ export default class TicTacToe extends EventEmitter {
     }
 
     async checkEndGame() {
+        console.info( 'TicTacToe.checkEndGame' );
         // Check if the active player is the winner in each line, column or diagonal
         if ( this.winningCells.some( arr => arr.some( cells => cells.every( cell => cell.ownedBy === this.activePlayer.id ) ) ) ) {
+            this.emit( 'endGame' );
             this.toggleFreeze();
             this.activePlayer.score ++;
             this.updateScore( this.activePlayer );
-            this.layout.info( `${ this.activePlayer.pseudo } wins!`, 5000, this.playAgain.bind( this ) );
+            this.layout.info( `${ this.activePlayer.pseudo } wins!`, 5000, this.playAgain.bind( this, true ) );
             return false;
         }
 
         // Every cells are played
         if ( this.cells.every( cell => cell.isActive === false ) ) {
+            this.emit( 'endGame' );
             this.toggleFreeze();
-            this.layout.info( 'The game is over with no winner!', 5000, this.playAgain.bind( this ) );
+            this.layout.info( 'The game is over with no winner!', 5000, this.playAgain.bind( this, true ) );
             return false;
         }
     }
 
-    async playAgain() {
+    async playAgain(hadFinishedOne = false) {
+        console.info( 'TicTacToe.playAgain' );
         await this.initGame();
         await this.toggleFreeze();
+        if ( hadFinishedOne ) {
+            this.emit( 'ready' );
+        }
     }
 
     async reset() {
+        console.info( 'TicTacToe.reset' );
+        // this.emit( 'loading' );
         await this.toggleFreeze();
 
         await Promise.all( this.players.map( async( player ) => {
@@ -381,17 +383,41 @@ export default class TicTacToe extends EventEmitter {
     }
 
     async restart() {
+        console.info( 'TicTacToe.restart' );
+        // this.emit( 'loading' );
+        return new Promise( async(resolve) => {
+            await this.toggleFreeze();
+            await this.playAgain();
+            resolve( 'restart' );
+        })
+    }
+
+    async newGame( data ) {
+        console.info( 'TicTacToe.newGame ', data );
+        // this.emit( 'loading' );
+        let players = [];
+        for ( let i = 0, l = defaultOptions.players.length; i < l; i++ ) {
+            const player = Object.assign( {}, this.players[ i ], data.players[ i ] );
+            player.score = 0;
+            players.push( player );
+        }
+        this.players = players;
+
+        this.cellsEdge = data.playgroundSize;
+
         await this.toggleFreeze();
-        await this.playAgain();
+        return await this.setup();
     }
 
     async updateScore( player ) {
+        console.info( 'TicTacToe.updateScore ', player.id, player.pseudo );
         const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
         const $score = $joystick.querySelector( '.score' );
         $score.firstChild.nodeValue = `${ player.score }`;
     }
 
     async toggleFreeze() {
+        console.info( 'TicTacToe.toggleFreeze ' );
         return await new Promise( resolve => {
             setTimeout( async() => {
                 this.isFreeze = !this.isFreeze;
@@ -407,26 +433,10 @@ export default class TicTacToe extends EventEmitter {
                     $joystick.classList.toggle( 'z-depth-3' );
                     const icon = $joystick.querySelector( '.name i' );
                     icon.classList[ this.isFreeze ? 'remove' : 'toggle' ]( 'blink' );
-                    console.log( 'FINISH TOGGLEFREEZE' );
+                    console.info( '-- End toggleFreeze' );
                     resolve( 'toggleFreeze' );
                 });
-            }, 3000);
+            }, 800);
         });
-    }
-
-    async newGameWith( data ) {
-        console.log('new game', data);
-        let players = [];
-        for ( let i = 0, l = defaultOptions.players.length; i < l; i++ ) {
-            const player = Object.assign( {}, this.players[ i ], data.players[ i ] );
-            player.score = 0;
-            players.push( player );
-        }
-        this.players = players;
-
-        this.cellsEdge = data.playgroundSize;
-
-        await this.toggleFreeze();
-        await this.setup();
     }
 }
