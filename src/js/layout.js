@@ -50,6 +50,8 @@ export default class Layout extends EventEmitter {
 
     onModalOpen() {
         [ ...$( '.picker-color' ) ].forEach( ( input, i ) => {
+            console.log(this);
+            console.log(this.playerColors);
             $( input ).spectrum({
                 color: this.playerColors[ i ],
                 flat: false,
@@ -143,7 +145,9 @@ export default class Layout extends EventEmitter {
     }
 
     set playerColors( colors ) {
+        console.log('Layout.setPlayerColors ', colors);
         this._playerColors = colors;
+        console.log(this._playerColors);
     }
 
 }

@@ -12,13 +12,51 @@ if ( process.env.NODE_ENV !== 'production' ) {
     console.warn( '⟁ ⚠ Looks like we are in development mode! ⚠ ⟁' );
 }
 
-HTMLDocument.prototype.ready = (d) => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.addEventListener('DOMContentLoaded', () => resolve(d)) );
+// HTMLDocument.prototype.ready = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.addEventListener('DOMContentLoaded', () => resolve(d)) );
+HTMLDocument.prototype.completeState = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.onreadystatechange = () => d.readyState === 'complete' ? resolve(d) : false );
 
-document.ready( document ).then( () => {
-    const layout = new Layout();
-    const game = new TicTacToe();
 
-    layout.on( 'submit:settings', data => game.newGameWith( data ) );
-    layout.on( 'restart', () => game.restart() );
-    layout.on( 'reset', () => game.reset() );
+document.completeState( document ).then( () => {
+
+    console.info('DOCUMENT STATE COMPLETE');
+
+    const showPage = () => {
+        const container = document.body.querySelector( '.main-container' );
+        if ( !container ) {
+            throw new Error( 'This app must be wrapped in a dom element with a ".main-container" class!' );
+        }
+        else {
+            container.classList.add('complete');
+        }
+    };
+
+    const runApp = () => {
+
+        const layout = new Layout();
+
+        new TicTacToe().then( ( { game, initializers } ) => {
+
+            console.log( 'SETUP FINISHED', initializers );
+
+            document.querySelector( '.progress' ).remove();
+
+            layout.on( 'submit:settings', data => game.newGameWith( data ) );
+
+            layout.on( 'restart', () => game.restart() );
+
+            layout.on( 'reset', () => game.reset() );
+
+        } );
+    };
+
+    try {
+        showPage();
+        runApp();
+    }
+    catch ( e ) {
+        console.error( `Something's wrong :( ${ e }` );
+    }
+
 });
+
+

@@ -5,6 +5,7 @@ const FaviconsWebpackPlugin = require( 'favicons-webpack-plugin' );
 
 module.exports = {
     entry: [
+        'babel-polyfill',
         './src/js/main.js',
         './src/index.html'
     ],
@@ -33,10 +34,21 @@ module.exports = {
                     'file-loader?name=fonts/[name].[ext]'
                 ]
             },
+            // {
+            //     test: /\.js?$/,
+            //     exclude: /(node_modules|bower_components)/,
+            //     use: {
+            //         loader: 'babel-loader',
+            //         options: {
+            //             presets: ['babel-preset-latest'],
+            //             cacheDirectory: true
+            //         }
+            //     }
+            // },
             {
                 test: /\.js?$/,
-                exclude: /node_modules/,
-                loaders: ['eslint-loader']
+                exclude: /(node_modules|bower_components)/,
+                loaders: [ 'eslint-loader' ]
             }
         ]
     },
