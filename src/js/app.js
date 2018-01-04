@@ -7,7 +7,6 @@ const APP = (() => {
     const loader = document.createElement( 'div' );
     let layout = null;
     let game = null;
-    let isLoading;
 
     const createLoader = () => {
         console.info( 'APP.createLoader' );
@@ -19,13 +18,11 @@ const APP = (() => {
 
     const displayLoader = () => {
         console.info( 'APP.displayLoader' );
-        isLoading = true;
         layout.listenMenuSettings( false );
         container.prepend( loader );
     };
     const removeLoader = () => {
         console.info( 'APP.removeLoader' );
-        isLoading = false;
         layout.listenMenuSettings( true );
         loader.remove();
     };
