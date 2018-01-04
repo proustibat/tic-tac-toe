@@ -11,3 +11,16 @@
         visibility: hidden;
     }
 }
+
+.logger {
+    background: #1d1f20;
+    color: #a7925a;
+    min-height: 3rem;
+    width: 100%;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem;
+}
