@@ -7,12 +7,13 @@ env:
 
 language: node_js
 
-node_js:
-  - "8"
+node_js: '8'
+
+cache: yarn
 
 addons:
   sonarcloud:
-    organization: "proustibat-github" # the key of the org you chose at step #3
+    organization: "proustibat-github"
     token:
       secure: "0QeD80aNIyY42vWHfHejnNreE1aBLW+tbhft0OyVPkGf4rZsyfFlbKU9PHPM2AvE2RmFMIUTq6U12rG8WmU9/NkRj1mChYxEnUKZ8HkcVKjA+okbH8caG3dTzZsKhuokh974Wv+ygacDpj4Xjr4ZdaTTLAtppmzGLEvzN13PNYphsOQB97DEdB3xXhDT/LZ8uBInAq9GjZmRaXDyMW8m1LO7dB19XzdPHwDnlLnwtKjpG8sA8ZvodkLVxgjIJngzAMqGzjeJUf6uZLVSYi8xxYN08jl0ZU3RK6azPR00sXsBIUlk4bAyL0fakMGvQyzA1CoJHWaaO5MXtMOX40UR+qHZU9lZdogUHKRAUwnwioRNtsA7cfbYF0VNQwr1z2ahQm8lYpMxb++bKAW4TCbHPDIkw36MoZWoOtwYd5vLWheY+/X2QCp099qqZSOVQdgXTVUEITm2eWlrTLK4xhHnRCvJ05rimFAPzj2xf2c8G5aSaMQZzunRPyD5B4NG0T1XxdKGWQandxXWGucnmdYCNR/U3ucXI4Z/L8StyYNlnbfNbx/QR+A0QHUSZN277n/YVBJ9/O2tAVU7rinFckX9IAV46xCSqcHBfK5vPCQknmO75Mggsg4wJFU9pcQ3fqEW3hVH5b6z8Cg2ALqUU1m2VWkRyW4D/qwsWgMKOHbx3oI="
 
