@@ -90,10 +90,24 @@ export default class Players {
     }
 
     async initPlayerJoystick( playerId, container, cellsEdge ) {
-        console.info( 'Players.initPlayerJoystick ', playerId );
+        console.info( 'Players.initPlayerJoystick' );
         return await new Promise( async( resolve ) => {
             setTimeout( async() => {
                 // grid
+                let grid = await this.createGrid( container, cellsEdge );
+
+                // buttons
+                await this.createButtons( grid, playerId, cellsEdge );
+
+                resolve( `initJoystick ${ playerId }` );
+
+            }, 800);
+        });
+    }
+
+    async createGrid( container, cellsEdge ) {
+        return await new Promise( async( resolve ) => {
+            setTimeout( async() => {
                 let grid;
                 if ( container.querySelector( '.grid' ) ) {
                     grid = await container.querySelector( '.grid' );
@@ -108,23 +122,17 @@ export default class Players {
                 }
 
                 await grid.style.setProperty( 'grid-template-columns', `repeat(${ cellsEdge }, 1fr)` );
-
-                // buttons
-                const promises = [];
-                for ( let i = 0, l = Math.pow( cellsEdge, 2 ); i < l; i++ ) {
-                    const buttonCreated = await this.createJoystickButton( grid, playerId, i );
-                    console.log( buttonCreated );
-                    promises.push( buttonCreated );
-
-                }
-
-                await Promise.all( promises ).then( () => {
-                    console.log( ' ALL BUTTONS CREATED FOR PLAYER ', playerId );
-                    resolve( `initJoystick ${ playerId }` );
-                });
-
-            }, 800);
+                resolve( grid );
+            }, 1000);
         });
+    }
+
+    async createButtons( grid, playerId, cellsEdge ) {
+        const buttonsPromises = [];
+        for ( let i = 0, l = Math.pow( cellsEdge, 2 ); i < l; i++ ) {
+            buttonsPromises.push( await this.createJoystickButton( grid, playerId, i ) );
+        }
+        return await Promise.all( buttonsPromises );
     }
 
     async createJoystickButton( grid, playerId, i ) {
@@ -143,7 +151,7 @@ export default class Players {
                 this.buttons.push( btn );
                 console.log( `Done button ${ i } for ${ playerId } ` );
                 resolve( `Done button ${ i } for ${ playerId } ` );
-            }, 3000);
+            }, 500);
         });
     }
 

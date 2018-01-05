@@ -96,14 +96,17 @@ export default class TicTacToe extends EventEmitter {
         const playerId = btn.getAttribute( 'data-player-id' );
         const cellIndex = parseInt( btn.getAttribute( 'data-cell-index' ), 10 );
         const cellClicked = this.cellsInstance.cells[ cellIndex ];
+        await this.toggleFreeze();
 
         if ( this.activePlayer.id !== playerId ) {
             this.layout.alert( `${ [ ...this.playersInstance.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
+            await this.toggleFreeze();
             return false;
         }
 
         if ( !cellClicked.isActive ) {
             this.layout.alert( 'Cell is already taken!' );
+            await this.toggleFreeze();
             return false;
         }
 
@@ -117,6 +120,7 @@ export default class TicTacToe extends EventEmitter {
         }
         else {
             console.log( 'NOT END', isEnd );
+            await this.toggleFreeze();
         }
         this.activePlayer = await [ ...this.playersInstance.players ].find( player => player.id !== playerId );
         await this.playersInstance.turnPlayerTo( this.activePlayer, this.isFreeze );
@@ -132,7 +136,7 @@ export default class TicTacToe extends EventEmitter {
                 // Check if the active player is the winner in each line, column or diagonal
                 if ( this.cellsInstance.winningCells.some( arr => arr.some( cells => cells.every( cell => cell.ownedBy === this.activePlayer.id ) ) ) ) {
                     this.emit( 'endGame' );
-                    await this.toggleFreeze();
+                    // await this.toggleFreeze();
                     this.activePlayer.score ++;
                     await this.updateScore( this.activePlayer );
                     this.layout.info( `${ this.activePlayer.pseudo } wins!`, 5000, this.playAgain.bind( this, true ) );
@@ -143,7 +147,7 @@ export default class TicTacToe extends EventEmitter {
                 // Every cells are played
                 if ( this.cellsInstance.cells.every( cell => cell.isActive === false ) ) {
                     this.emit( 'endGame' );
-                    await this.toggleFreeze();
+                    // await this.toggleFreeze();
                     this.layout.info( 'The game is over with no winner!', 5000, this.playAgain.bind( this, true ) );
                     // return false;
                     resolve( true );
@@ -234,7 +238,7 @@ export default class TicTacToe extends EventEmitter {
                     console.info( '-- End toggleFreeze' );
                     resolve( 'toggleFreeze' );
                 });
-            }, 800);
+            }, 200);
         });
     }
 }
