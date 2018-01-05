@@ -22,9 +22,7 @@ HTMLDocument.prototype.ready = d => {
             resolve( d );
         }
         else {
-            waitForComplete( d ).then( () => {
-                resolve( d );
-            });
+            waitForComplete( d ).then( resolve.bind( d ) );
         }
     });
 };
