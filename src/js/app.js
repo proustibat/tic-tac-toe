@@ -7,6 +7,7 @@ export default class APP {
         console.info( 'Hello APP' );
 
         this.container = document.body.querySelector( '.main-container' );
+        this.loader = document.createElement( 'div' );
         this.layout = null;
         this.game = null;
 
