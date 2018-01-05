@@ -98,14 +98,8 @@ export default class TicTacToe extends EventEmitter {
         const cellClicked = this.cellsInstance.cells[ cellIndex ];
         await this.toggleFreeze();
 
-        if ( this.activePlayer.id !== playerId ) {
-            this.layout.alert( `${ [ ...this.playersInstance.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
-            await this.toggleFreeze();
-            return false;
-        }
-
-        if ( !cellClicked.isActive ) {
-            this.layout.alert( 'Cell is already taken!' );
+        const canContinue = await this.checkIfGameContinues( cellClicked, playerId );
+        if ( !canContinue ) {
             await this.toggleFreeze();
             return false;
         }
@@ -124,6 +118,20 @@ export default class TicTacToe extends EventEmitter {
         }
         this.activePlayer = await [ ...this.playersInstance.players ].find( player => player.id !== playerId );
         await this.playersInstance.turnPlayerTo( this.activePlayer, this.isFreeze );
+    }
+
+    async checkIfGameContinues( cellClicked, playerId ) {
+        if ( this.activePlayer.id !== playerId ) {
+            this.layout.alert( `${ [ ...this.playersInstance.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
+            return false;
+        }
+
+        if ( !cellClicked.isActive ) {
+            this.layout.alert( 'Cell is already taken!' );
+            return false;
+        }
+
+        return true;
     }
 
     // TODO: refacto to put in Cells instance that return just true or false with maybe some data
@@ -230,15 +238,17 @@ export default class TicTacToe extends EventEmitter {
                     btn[ this.isFreeze ? 'removeEventListener' : 'addEventListener' ]( 'click', this.buttonsListener );
                     return btn;
                 })).then( () => {
+                    // TODO: should be in players.js
                     // Blinking player indicator
                     const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ this.activePlayer.id }" ]` );
                     $joystick.classList.toggle( 'z-depth-3' );
+                    $joystick.classList.toggle( 'joystick-is-authorized' );
                     const icon = $joystick.querySelector( '.name i' );
                     icon.classList[ this.isFreeze ? 'remove' : 'toggle' ]( 'blink' );
                     console.info( '-- End toggleFreeze' );
                     resolve( 'toggleFreeze' );
                 });
-            }, 200);
+            }, 3000);
         });
     }
 }

@@ -116,6 +116,10 @@ html, body, .block {
     transition: box-shadow 250ms ease;
 }
 
+.joystick-is-authorized {
+    transform: scale(1.05);
+}
+
 .grid {
     display: grid;
     grid-gap: 1px;

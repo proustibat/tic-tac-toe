@@ -164,6 +164,7 @@ export default class Players {
                     await Promise.all( this.players.map( async( p ) => {
                         const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ p.id }" ]` );
                         $joystick.classList.toggle( 'z-depth-3' );
+                        $joystick.classList.toggle( 'joystick-is-authorized' );
                         $joystick.querySelector( '.name i' ).classList.toggle( 'blink' );
                         return p;
                     })).then( () => {
@@ -175,7 +176,7 @@ export default class Players {
                     console.info(' -- End turnPlayerTo ', player.pseudo, 'not active' );
                     resolve( `NOT TURN TO ${ player.pseudo }` );
                 }
-            }, 800);
+            }, 3000);
         });
     }
 
