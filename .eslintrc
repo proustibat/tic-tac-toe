@@ -75,6 +75,7 @@
     "require": false,
     "module":  false,
     "console": false,
-    "Materialize": false
+    "Materialize": false,
+    "Logger": false
   }
 }
