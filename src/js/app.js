@@ -1,77 +1,76 @@
 import Layout from './layout';
 import TicTacToe from './tic-tac-toe';
 
-const APP = (() => {
+export default class APP {
 
-    const container = document.body.querySelector( '.main-container' );
-    const loader = document.createElement( 'div' );
-    let layout = null;
-    let game = null;
+    constructor() {
+        console.info( 'Hello APP' );
 
-    const createLoader = () => {
-        console.info( 'APP.createLoader' );
-        const contentLoader = document.createElement( 'div' );
-        loader.setAttribute( 'class', 'progress' );
-        contentLoader.setAttribute( 'class', 'indeterminate' );
-        loader.appendChild( contentLoader );
-    };
+        this.container = document.body.querySelector( '.main-container' );
+        this.layout = null;
+        this.game = null;
 
-    const displayLoader = () => {
-        console.info( 'APP.displayLoader' );
-        layout.listenMenuSettings( false );
-        container.prepend( loader );
-    };
-    const removeLoader = () => {
-        console.info( 'APP.removeLoader' );
-        layout.listenMenuSettings( true );
-        loader.remove();
-    };
+        this.createLoader();
 
-    const showPage = () => {
-        console.info( 'APP.showPage' );
-        if ( !container ) {
-            throw new Error( 'This app must be wrapped in a dom element with a ".main-container" class!' );
-        }
-        else {
-            container.classList.add('complete');
-        }
-    };
-    const onChange = ( e ) => {
-        console.info( 'APP.onChange' );
-        displayLoader();
-        game && e.eventName && game[ e.eventName ]( e.data ).then( removeLoader );
-    };
-
-    const runApp = () => {
-        console.info( 'APP.runApp' );
-        layout = new Layout();
-        displayLoader();
-        new TicTacToe().then( ( { tictactoeInstance, initializers } ) => {
-            game = tictactoeInstance;
-            removeLoader();
-            const events = [ 'newGame', 'restart', 'reset' ];
-            events.forEach( eventName => layout.on( eventName, onChange ) );
-
-            game.on( 'endGame', displayLoader );
-            game.on( 'ready', removeLoader );
-
-            console.info( '*** APP.runApp => setup finished, game is ready to play', initializers );
-        } );
-    };
-
-    const init = () => {
-        console.info( 'APP.init' );
-        createLoader();
         try {
-            showPage();
-            runApp();
+            this.showPage();
+            this.runApp();
         }
         catch ( e ) {
             console.error( `Something's wrong :( ${ e }` );
         }
-    };
+    }
 
-    return { init };
-})();
+    createLoader() {
+        console.info( 'APP.createLoader' );
+        const contentLoader = document.createElement( 'div' );
+        this.loader.setAttribute( 'class', 'progress' );
+        contentLoader.setAttribute( 'class', 'indeterminate' );
+        this.loader.appendChild( contentLoader );
+    }
 
-export default APP;
+    displayLoader() {
+        console.info( 'APP.displayLoader' );
+        this.layout.listenMenuSettings( false );
+        this.container.prepend( this.loader );
+    }
+
+    removeLoader() {
+        console.info('APP.removeLoader');
+        this.layout.listenMenuSettings(true);
+        this.loader.remove();
+    }
+
+    showPage() {
+        console.info( 'APP.showPage' );
+        if ( !this.container ) {
+            throw new Error( 'This app must be wrapped in a dom element with a ".main-container" class!' );
+        }
+        else {
+            this.container.classList.add('complete');
+        }
+    }
+
+    runApp() {
+        console.info( 'APP.runApp' );
+        this.layout = new Layout();
+        this.displayLoader();
+        new TicTacToe().then( ( { tictactoeInstance, initializers } ) => {
+            this.game = tictactoeInstance;
+            this.removeLoader();
+            const events = [ 'newGame', 'restart', 'reset' ];
+            events.forEach( eventName => this.layout.on( eventName, this.onChange ) );
+
+            this.game.on( 'endGame', this.displayLoader );
+            this.game.on( 'ready', this.removeLoader );
+
+            console.info( '*** APP.runApp => setup finished, game is ready to play', initializers );
+        } );
+    }
+
+    onChange( e ) {
+        console.info( 'APP.onChange' );
+        this.displayLoader();
+        this.game && e.eventName && this.game[ e.eventName ]( e.data ).then( this.removeLoader );
+    }
+}

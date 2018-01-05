@@ -11,10 +11,13 @@ import './AppInfo';
 if ( process.env.NODE_ENV !== 'production' ) {
     console.warn( 'Looks like we are in development mode!' );
 }
+else {
+    Logger.disable();
+}
 
 // HTMLDocument.prototype.ready = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.addEventListener('DOMContentLoaded', () => resolve(d)) );
 HTMLDocument.prototype.completeState = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.onreadystatechange = () => d.readyState === 'complete' ? resolve(d) : false );
 
 document.completeState( document ).then( () => {
-    APP.init();
+    new APP();
 });
