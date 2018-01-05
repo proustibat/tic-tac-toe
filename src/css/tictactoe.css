@@ -119,6 +119,7 @@ html, body, .block {
 .grid {
     display: grid;
     grid-gap: 1px;
+    justify-items: center;
 }
 
 .players-joystick .btn {
