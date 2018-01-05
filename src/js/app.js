@@ -7,6 +7,7 @@ export default class APP {
         console.info( 'Hello APP' );
 
         this.container = document.body.querySelector( '.main-container' );
+        this.loader = document.createElement( 'div' );
         this.layout = null;
         this.game = null;
 
@@ -23,7 +24,6 @@ export default class APP {
 
     createLoader() {
         console.info( 'APP.createLoader' );
-        this.loader = document.createElement( 'div' );
         const contentLoader = document.createElement( 'div' );
         this.loader.setAttribute( 'class', 'progress' );
         contentLoader.setAttribute( 'class', 'indeterminate' );
@@ -38,7 +38,7 @@ export default class APP {
 
     removeLoader() {
         console.info('APP.removeLoader');
-        this.layout.listenMenuSettings(true);
+        this.layout.listenMenuSettings( true );
         this.loader.remove();
     }
 
@@ -48,7 +48,7 @@ export default class APP {
             throw new Error( 'This app must be wrapped in a dom element with a ".main-container" class!' );
         }
         else {
-            this.container.classList.add('complete');
+            this.container.classList.add( 'complete' );
         }
     }
 
@@ -60,10 +60,10 @@ export default class APP {
             this.game = tictactoeInstance;
             this.removeLoader();
             const events = [ 'newGame', 'restart', 'reset' ];
-            events.forEach( eventName => this.layout.on( eventName, this.onChange ) );
+            events.forEach( eventName => this.layout.on( eventName, this.onChange.bind( this ) ) );
 
-            this.game.on( 'endGame', this.displayLoader );
-            this.game.on( 'ready', this.removeLoader );
+            this.game.on( 'endGame', this.displayLoader.bind( this ) );
+            this.game.on( 'ready', this.removeLoader.bind( this ) );
 
             console.info( '*** APP.runApp => setup finished, game is ready to play', initializers );
         } );
@@ -72,6 +72,6 @@ export default class APP {
     onChange( e ) {
         console.info( 'APP.onChange' );
         this.displayLoader();
-        this.game && e.eventName && this.game[ e.eventName ]( e.data ).then( this.removeLoader );
+        this.game && e.eventName && this.game[ e.eventName ]( e.data ).then( this.removeLoader.bind( this ) );
     }
 }

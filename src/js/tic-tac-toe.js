@@ -1,4 +1,5 @@
 import Layout from './layout';
+import Cells from './cells';
 import EventEmitter from 'events';
 
 const defaultOptions = {
@@ -25,19 +26,21 @@ export default class TicTacToe extends EventEmitter {
 
         this.layout = new Layout();
 
-        this.cellsEdge = cellsEdge;
         this.canvasSize = canvasSize > 320 ? 320 : canvasSize;
-
-        this.players = [];
-        for ( let i = 0, l = defaultOptions.players.length; i < l; i++ ) {
-            this.players.push( Object.assign( {}, defaultOptions.players[ i ], players[ i ] ) );
-        }
 
         this.canvas = document.querySelector( '.game-canvas' );
         if (!this.canvas) {
             throw new Error( 'This app requires a canvas element with a ".game-canvas" class!' );
         }
         this.ctx = this.canvas.getContext( '2d' );
+
+        // this.cellsEdge = cellsEdge;
+        this.cellsInstance = new Cells( this.ctx, cellsEdge );
+
+        this.players = [];
+        for ( let i = 0, l = defaultOptions.players.length; i < l; i++ ) {
+            this.players.push( Object.assign( {}, defaultOptions.players[ i ], players[ i ] ) );
+        }
 
         this.isFreeze = true;
 
@@ -73,102 +76,96 @@ export default class TicTacToe extends EventEmitter {
             this.canvas.parentElement.style.width = this.canvas.parentElement.style.height = await `${ this.canvasSize }px`;
 
             // Declarations of every cells
-            this.cells = await [];
-            this.diagonals = await [ [], [] ];
-            this.lines = await [];
-            this.columns = await [];
-            for ( let i = 0; i < this.cellsEdge; i++ ) {
-                await this.lines.push( [] );
-                await this.columns.push( [] );
-            }
+            await this.cellsInstance.init();
 
             // Calculate cells sizes and coordinates
-            const initCells = await this.initCells();
+            const initCells = await this.cellsInstance.initCells( this.canvasSize );
+            // const initCells = await this.initCells();
             console.info(' -- End', initCells );
             resolve( `initGame [${ initCells }]` );
         });
     }
 
-    async initCells() {
-        console.info( 'TicTacToe.initCells' );
-        return await new Promise( async( resolve ) => {
+    // async initCells() {
+    //     console.info( 'TicTacToe.initCells' );
+    //     return await new Promise( async( resolve ) => {
+    //
+    //         await setTimeout( async() => {
+    //             const edge = await Math.round( this.canvasSize / this.cellsEdge );
+    //
+    //             const saveCellsArr = await [];
+    //             const fillCellsArr = await [];
+    //             // Create every cells
+    //             for ( let i = 0, l = Math.pow( this.cellsEdge, 2 ), row = 0, col; i < l; i++ ) {
+    //                 col = i % this.cellsEdge;
+    //
+    //                 // Calculate coordinates
+    //                 const cell = {
+    //                     isActive: true,
+    //                     ownedBy: null,
+    //                     coordinates: [ edge * col, edge * row, edge, edge ],
+    //                 };
+    //
+    //                 const saveCell = await this.saveCell( cell, row, col );
+    //                 console.info(' -- End', saveCell );
+    //                 saveCellsArr.push( saveCell );
+    //
+    //                 // Update row number
+    //                 row = col === this.cellsEdge - 1 ? row + 1 : row;
+    //
+    //                 // Init color of the cell
+    //                 const fillCell =  await this.fillCell( i % 2 ? '#eeeeee' : '#fafafa', cell.coordinates );
+    //                 console.info(' -- End', fillCell );
+    //                 fillCellsArr.push( fillCell );
+    //             }
+    //
+    //             this.winningCells = await [ this.lines, this.columns, this.diagonals ];
+    //
+    //             resolve( `initCells [${saveCellsArr}, ${saveCellsArr}]` );
+    //
+    //         }, 800);
+    //     });
+    // }
 
-            await setTimeout( async() => {
-                const edge = await Math.round( this.canvasSize / this.cellsEdge );
+    // async saveCell( cell, row, col ) {
+    //     return await new Promise( async( resolve ) => {
+    //         await setTimeout( async() => {
+    //             // Save cell into array of all cells
+    //             this.cells.push( cell );
+    //
+    //             // Save cell into array of lines, array of columns and array of diagonals
+    //             this.lines[ row ].push( cell );
+    //             this.columns[ col ].push( cell );
+    //
+    //             // Save cell into array of the main diagonal
+    //             if ( row === col ) {
+    //                 this.diagonals[ 0 ].push( cell );
+    //             }
+    //             // Save cell into array of the second diagonal
+    //             if ( row + col === this.cellsEdge - 1 ) {
+    //                 this.diagonals[ 1 ].push( cell ) ;
+    //             }
+    //
+    //             resolve( `saveCell [${row}, ${col}]` );
+    //
+    //         }, 200);
+    //     });
+    // }
 
-                const saveCellsArr = await [];
-                const fillCellsArr = await [];
-                // Create every cells
-                for ( let i = 0, l = Math.pow( this.cellsEdge, 2 ), row = 0, col; i < l; i++ ) {
-                    col = i % this.cellsEdge;
-
-                    // Calculate coordinates
-                    const cell = {
-                        isActive: true,
-                        ownedBy: null,
-                        coordinates: [ edge * col, edge * row, edge, edge ],
-                    };
-
-                    const saveCell = await this.saveCell( cell, row, col );
-                    console.info(' -- End', saveCell );
-                    saveCellsArr.push( saveCell );
-
-                    // Update row number
-                    row = col === this.cellsEdge - 1 ? row + 1 : row;
-
-                    // Init color of the cell
-                    const fillCell =  await this.fillCell( i % 2 ? '#eeeeee' : '#fafafa', cell.coordinates );
-                    console.info(' -- End', fillCell );
-                    fillCellsArr.push( fillCell );
-                }
-
-                this.winningCells = await [ this.lines, this.columns, this.diagonals ];
-
-                resolve( `initCells [${saveCellsArr}, ${saveCellsArr}]` );
-
-            }, 800);
-        });
-    }
-
-    async saveCell( cell, row, col ) {
-        return await new Promise( async( resolve ) => {
-            await setTimeout( async() => {
-                // Save cell into array of all cells
-                this.cells.push( cell );
-
-                // Save cell into array of lines, array of columns and array of diagonals
-                this.lines[ row ].push( cell );
-                this.columns[ col ].push( cell );
-
-                // Save cell into array of the main diagonal
-                if ( row === col ) {
-                    this.diagonals[ 0 ].push( cell );
-                }
-                // Save cell into array of the second diagonal
-                if ( row + col === this.cellsEdge - 1 ) {
-                    this.diagonals[ 1 ].push( cell ) ;
-                }
-
-                resolve( `saveCell [${row}, ${col}]` );
-
-            }, 200);
-        });
-    }
-
-    async fillCell( color, coordinates, borderColor = '#bdbdbd' ) {
-        return await new Promise( async( resolve ) => {
-            await setTimeout( async() => {
-
-                this.ctx.fillStyle = await color;
-                await this.ctx.fillRect( ...coordinates );
-                this.ctx.strokeStyle = await borderColor;
-                await this.ctx.strokeRect( ...coordinates );
-
-                resolve( `fillCell ${coordinates}` );
-
-            }, 200);
-        });
-    }
+    // async fillCell( color, coordinates, borderColor = '#bdbdbd' ) {
+    //     return await new Promise( async( resolve ) => {
+    //         await setTimeout( async() => {
+    //
+    //             this.ctx.fillStyle = await color;
+    //             await this.ctx.fillRect( ...coordinates );
+    //             this.ctx.strokeStyle = await borderColor;
+    //             await this.ctx.strokeRect( ...coordinates );
+    //
+    //             resolve( `fillCell ${coordinates}` );
+    //
+    //         }, 200);
+    //     });
+    // }
 
     async initPlayers() {
         console.info( 'TicTacToe.initPlayers' );
@@ -265,10 +262,10 @@ export default class TicTacToe extends EventEmitter {
                     await container.appendChild( grid );
                 }
 
-                await grid.style.setProperty( 'grid-template-columns', `repeat(${ this.cellsEdge }, 1fr)` );
+                await grid.style.setProperty( 'grid-template-columns', `repeat(${ this.cellsInstance.cellsEdge }, 1fr)` );
 
                 // buttons
-                await this.cells.forEach( ( cell, i ) => {
+                await this.cellsInstance.cells.forEach( ( cell, i ) => {
                     const btn = document.createElement( 'a' );
                     const icon = document.createElement( 'i' );
                     btn.appendChild( icon );
@@ -318,7 +315,7 @@ export default class TicTacToe extends EventEmitter {
         const btn = e.currentTarget;
         const playerId = btn.getAttribute( 'data-player-id' );
         const cellIndex = parseInt( btn.getAttribute( 'data-cell-index' ), 10 );
-        const cellClicked = this.cells[ cellIndex ];
+        const cellClicked = this.cellsInstance.cells[ cellIndex ];
 
         if ( this.activePlayer.id !== playerId ) {
             this.layout.alert( `${ [ ...this.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
@@ -330,17 +327,18 @@ export default class TicTacToe extends EventEmitter {
             return false;
         }
 
-        await this.fillCell( this.activePlayer.color, cellClicked.coordinates, '#212121' );
+        await this.cellsInstance.fillCell( this.activePlayer.color, cellClicked.coordinates, '#212121' );
         cellClicked.isActive = false;
         cellClicked.ownedBy = playerId;
         await this.checkEndGame();
         await this.turnPlayerTo( [ ...this.players ].find( player => player.id !== playerId ) );
     }
 
+    // TODO: refacto to put in Cells instance that return just true or false with maybe some data
     async checkEndGame() {
         console.info( 'TicTacToe.checkEndGame' );
         // Check if the active player is the winner in each line, column or diagonal
-        if ( this.winningCells.some( arr => arr.some( cells => cells.every( cell => cell.ownedBy === this.activePlayer.id ) ) ) ) {
+        if ( this.cellsInstance.winningCells.some( arr => arr.some( cells => cells.every( cell => cell.ownedBy === this.activePlayer.id ) ) ) ) {
             this.emit( 'endGame' );
             this.toggleFreeze();
             this.activePlayer.score ++;
@@ -350,7 +348,7 @@ export default class TicTacToe extends EventEmitter {
         }
 
         // Every cells are played
-        if ( this.cells.every( cell => cell.isActive === false ) ) {
+        if ( this.cellsInstance.cells.every( cell => cell.isActive === false ) ) {
             this.emit( 'endGame' );
             this.toggleFreeze();
             this.layout.info( 'The game is over with no winner!', 5000, this.playAgain.bind( this, true ) );
@@ -403,7 +401,7 @@ export default class TicTacToe extends EventEmitter {
         }
         this.players = players;
 
-        this.cellsEdge = data.playgroundSize;
+        this.cellsInstance.cellsEdge = data.playgroundSize;
 
         await this.toggleFreeze();
         return await this.setup();
