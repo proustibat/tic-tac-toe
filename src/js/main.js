@@ -14,24 +14,20 @@ if ( process.env.NODE_ENV !== 'production' ) {
 // HTMLDocument.prototype.ready = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.addEventListener('DOMContentLoaded', () => resolve(d)) );
 // HTMLDocument.prototype.completeState = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.onreadystatechange = () => d.readyState === 'complete' ? resolve(d) : false );
 
-const waitForComplete = () => {
+const waitForComplete = d => {
     return new Promise( resolve => {
-        document.onreadystatechange = () => {
-            if ( document.readyState === 'complete' ) {
-                resolve( document );
-            }
-        }
+        d.onreadystatechange = () => d.readyState === 'complete' && resolve( d );
     });
 };
 
-HTMLDocument.prototype.ready = () => {
+HTMLDocument.prototype.ready = d => {
     return new Promise( resolve => {
-        if ( document.readyState === 'complete' ) {
-            resolve( document );
+        if ( d.readyState === 'complete' ) {
+            resolve( d );
         }
         else {
-            waitForComplete().then( () => {
-                resolve( document );
+            waitForComplete( d ).then( () => {
+                resolve( d );
             });
         }
     });
