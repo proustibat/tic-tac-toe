@@ -14,9 +14,7 @@ if ( process.env.NODE_ENV !== 'production' ) {
 // HTMLDocument.prototype.ready = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.addEventListener('DOMContentLoaded', () => resolve(d)) );
 // HTMLDocument.prototype.completeState = d => new Promise( resolve => d.readyState === 'complete' ? resolve(d) : d.onreadystatechange = () => d.readyState === 'complete' ? resolve(d) : false );
 
-const waitForComplete = d => {
-    return new Promise( resolve => d.onreadystatechange = () => d.readyState === 'complete' && resolve( d ) );
-};
+const waitForComplete = d => new Promise( resolve => d.onreadystatechange = () => d.readyState === 'complete' && resolve( d ) );
 
 HTMLDocument.prototype.ready = d => {
     return new Promise( resolve => {
