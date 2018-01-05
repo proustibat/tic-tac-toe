@@ -34,22 +34,21 @@ module.exports = {
                     'file-loader?name=fonts/[name].[ext]'
                 ]
             },
-            // {
-            //     test: /\.js?$/,
-            //     exclude: /(node_modules|bower_components)/,
-            //     use: {
-            //         loader: 'babel-loader',
-            //         options: {
-            //             presets: ['babel-preset-latest'],
-            //             cacheDirectory: true
-            //         }
-            //     }
-            // },
+            {
+                enforce: 'pre',
+                test: /\.js?$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'eslint-loader',
+            },
             {
                 test: /\.js?$/,
                 exclude: /(node_modules|bower_components)/,
-                loaders: [ 'eslint-loader' ]
-            }
+                loader: 'babel-loader',
+                options: {
+                    presets: ['babel-preset-latest'],
+                    cacheDirectory: true,
+                }
+            },
         ]
     },
     plugins: [
@@ -60,4 +59,5 @@ module.exports = {
         new FaviconsWebpackPlugin( './src/favicon.png' ),
         new CleanWebpackPlugin( [ 'dist' ] ),
     ],
+    devtool: 'source-map',
 };

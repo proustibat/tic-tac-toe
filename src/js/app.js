@@ -7,7 +7,6 @@ export default class APP {
         console.info( 'Hello APP' );
 
         this.container = document.body.querySelector( '.main-container' );
-        this.loader = document.createElement( 'div' );
         this.layout = null;
         this.game = null;
 
@@ -24,6 +23,7 @@ export default class APP {
 
     createLoader() {
         console.info( 'APP.createLoader' );
+        this.loader = document.createElement( 'div' );
         const contentLoader = document.createElement( 'div' );
         this.loader.setAttribute( 'class', 'progress' );
         contentLoader.setAttribute( 'class', 'indeterminate' );
