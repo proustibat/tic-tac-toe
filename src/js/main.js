@@ -11,9 +11,11 @@ if ( process.env.NODE_ENV !== 'production' ) {
     console.warn( 'Looks like we are in development mode!' );
 }
 
-const waitForComplete = d => new Promise( resolve => d.onreadystatechange = () => d.readyState === 'complete' && resolve( d ) );
+const waitForComplete = d => new Promise( resolve => ( d.onreadystatechange = () => d.readyState === 'complete' && resolve( d ) ) );
 HTMLDocument.prototype.ready = d => new Promise( resolve => d.readyState === 'complete' ? resolve( d ) : waitForComplete( d ).then( resolve.bind( d ) ) );
 
 document.ready( document ).then( () => {
+    /* eslint-disable */
     new APP();
-});
+    /* eslint-enable */
+} );

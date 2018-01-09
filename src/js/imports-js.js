@@ -6,4 +6,3 @@ import 'materialize-css/dist/js/materialize';
 
 // Spectrum (color picker)
 import 'spectrum-colorpicker/spectrum.js';
-

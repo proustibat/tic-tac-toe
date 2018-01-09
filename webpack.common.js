@@ -1,6 +1,6 @@
-const path                  = require( 'path' );
-const HtmlWebpackPlugin     = require( 'html-webpack-plugin' );
-const CleanWebpackPlugin    = require( 'clean-webpack-plugin' );
+const path = require( 'path' );
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const FaviconsWebpackPlugin = require( 'favicons-webpack-plugin' );
 
 module.exports = {
@@ -45,17 +45,17 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
                 options: {
-                    presets: ['babel-preset-latest'],
+                    presets: [ 'babel-preset-latest' ],
                     cacheDirectory: true,
                 }
             },
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
+        new HtmlWebpackPlugin( {
             template: './src/index.html',
             hash: true,
-        }),
+        } ),
         new FaviconsWebpackPlugin( './src/favicon.png' ),
         new CleanWebpackPlugin( [ 'dist' ] ),
     ],

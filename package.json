@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "6.26.0",
+    "babel-eslint": "8.2.1",
     "babel-loader": "7.1.2",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.6.1",
@@ -15,7 +16,9 @@
     "clean-webpack-plugin": "0.1.17",
     "css-loader": "0.28.7",
     "csslint": "1.0.5",
-    "eslint": "4.13.1",
+    "eslint": "4.15.0",
+    "eslint-config-eslint": "4.0.0",
+    "eslint-config-standard": "11.0.0-beta.0",
     "eslint-loader": "1.9.0",
     "favicons-webpack-plugin": "0.0.7",
     "file-loader": "1.1.6",
@@ -24,6 +27,7 @@
     "materialize-css": "0.100.2",
     "path": "0.12.7",
     "raw-loader": "0.5.1",
+    "standard": "10.0.3",
     "style-loader": "0.19.1",
     "uglifyjs-webpack-plugin": "1.1.4",
     "url-loader": "0.6.2",
@@ -35,7 +39,7 @@
   "scripts": {
     "start": "node build.js && webpack-dev-server --open  --config webpack.dev.js",
     "build": "node build.js && yarn lint:css && yarn lint:js && webpack --config webpack.prod.js",
-    "lint:js": "eslint . --ext .js",
+    "lint:js": "eslint . --ext .js -c .eslintrc.js --fix",
     "lint:css": "csslint . --exclude-list=node_modules,src/css/shame.css --config=.csslintrc"
   },
   "dependencies": {

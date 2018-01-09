@@ -2,8 +2,7 @@ import Layout from './layout';
 import TicTacToe from './tic-tac-toe';
 
 export default class APP {
-
-    constructor() {
+    constructor () {
         console.info( 'Hello APP' );
 
         this.container = document.body.querySelector( '.main-container' );
@@ -16,13 +15,12 @@ export default class APP {
         try {
             this.showPage();
             this.runApp();
-        }
-        catch ( e ) {
-            console.error( `Something's wrong :( ${ e }` );
+        } catch ( e ) {
+            console.error( `Something's wrong :( ${e}` );
         }
     }
 
-    createLoader() {
+    createLoader () {
         console.info( 'APP.createLoader' );
         const contentLoader = document.createElement( 'div' );
         this.loader.setAttribute( 'class', 'progress' );
@@ -30,29 +28,28 @@ export default class APP {
         this.loader.appendChild( contentLoader );
     }
 
-    displayLoader() {
+    displayLoader () {
         console.info( 'APP.displayLoader' );
         this.layout.listenMenuSettings( false );
         this.container.prepend( this.loader );
     }
 
-    removeLoader() {
-        console.info('APP.removeLoader');
+    removeLoader () {
+        console.info( 'APP.removeLoader' );
         this.layout.listenMenuSettings( true );
         this.loader.remove();
     }
 
-    showPage() {
+    showPage () {
         console.info( 'APP.showPage' );
         if ( !this.container ) {
             throw new Error( 'This app must be wrapped in a dom element with a ".main-container" class!' );
-        }
-        else {
+        } else {
             this.container.classList.add( 'complete' );
         }
     }
 
-    runApp() {
+    runApp () {
         console.info( 'APP.runApp' );
         this.layout = new Layout();
         this.displayLoader();
@@ -69,7 +66,7 @@ export default class APP {
         } );
     }
 
-    onChange( e ) {
+    onChange ( e ) {
         console.info( 'APP.onChange' );
         this.displayLoader();
         this.game && e.eventName && this.game[ e.eventName ]( e.data ).then( this.removeLoader.bind( this ) );

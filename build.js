@@ -1,7 +1,7 @@
 const chalk = require( 'chalk' );
-const log   = console.log;
-const util  = require( 'util' );
-const fs    = require( 'fs' );
+const log = console.log;
+const util = require( 'util' );
+const fs = require( 'fs' );
 
 const logger = {
 
@@ -14,9 +14,9 @@ const logger = {
             underline += '-';
         }
         underline += '|';
-        log( chalk.white.bgGreen.bold( `${ underline }` ) );
-        log( chalk.white.bgGreen.bold( `${ prefix }${ val }${ suffix }` ) );
-        log( chalk.white.bgGreen.bold( `${ underline }` ) );
+        log( chalk.white.bgGreen.bold( `${underline}` ) );
+        log( chalk.white.bgGreen.bold( `${prefix}${val}${suffix}` ) );
+        log( chalk.white.bgGreen.bold( `${underline}` ) );
         log( '\r' );
     },
 
@@ -26,25 +26,24 @@ const logger = {
         for ( let i = 0; i < charTotal; i++ ) {
             underline += '-';
         }
-        log( chalk.green( `${ underline }` ) );
+        log( chalk.green( `${underline}` ) );
     },
 
     congrats: msg => {
         log( '\r' );
-        log( chalk.white.bgGreen.bold( ` ☆    ${ util.inspect( msg.toUpperCase(), false, null ) }  ☆  ` ) );
+        log( chalk.white.bgGreen.bold( ` ☆    ${util.inspect( msg.toUpperCase(), false, null )}  ☆  ` ) );
         log( '\r' );
     },
 
-    info: msg => log( chalk.white( ( `►  ${ util.inspect( msg, false, null ) }` ) ) ),
+    info: msg => log( chalk.white( ( `►  ${util.inspect( msg, false, null )}` ) ) ),
 
-    done: msg => log( chalk.green( ( `✓  Done:\n ${ util.inspect( msg, false, null ) }` ) ) ),
+    done: msg => log( chalk.green( ( `✓  Done:\n ${util.inspect( msg, false, null )}` ) ) ),
 
-    error: err => log( chalk.red( (`☹  Error:\n ${ util.inspect( err, false, null ) }` ) ) )
+    error: err => log( chalk.red( ( `☹  Error:\n ${util.inspect( err, false, null )}` ) ) )
 };
 
 class Build {
-
-    constructor() {
+    constructor () {
         logger.title( 'PREPARE BUILD' );
         logger.separator();
         this.loadPackage();
@@ -52,24 +51,24 @@ class Build {
         this.writeAppInfo();
     }
 
-    loadPackage() {
+    loadPackage () {
         logger.info( 'Load ./package.json' );
         this.pkg = require( './package.json' );
         logger.done( 'package.json is loaded' );
         logger.separator();
     }
 
-    prepareAppInfo() {
+    prepareAppInfo () {
         logger.info( 'Prepare AppInfo data' );
         const timestamp = Date.now();
-        this.contentFile = `window.AppInfo = { name: '${ this.pkg.name }', version: '${ this.pkg.version }', build: '${ timestamp }', dateBuild: '${ new Date( timestamp ).toISOString() }' };\n`;
+        this.contentFile = `window.AppInfo = { name: '${this.pkg.name}', version: '${this.pkg.version}', build: '${timestamp}', dateBuild: '${new Date( timestamp ).toISOString()}' };\n`;
         logger.done( 'AppInfo ok' );
         logger.separator();
     }
 
-    writeAppInfo() {
+    writeAppInfo () {
         logger.info( 'Writing content into file AppInfo.js' );
-        fs.writeFile( './src/js/AppInfo.js', `${ this.contentFile }`, err => {
+        fs.writeFile( './src/js/AppInfo.js', `${this.contentFile}`, err => {
             if ( err ) {
                 logger.error( err );
                 return false;
@@ -77,11 +76,10 @@ class Build {
             logger.done( 'The file is saved!' );
             logger.separator();
             logger.congrats( 'MAZEL TOV!' );
-        });
+        } );
     }
 }
 
 module.exports = ( () => {
     return new Build();
 } )();
-
