@@ -18,7 +18,7 @@ if ( process.env.NODE_ENV !== 'production' ) {
     console.warn( 'Looks like we are in development mode!' );
 }
 
-document.ready( document ).then( () => {
+document.ready().then( () => {
     // Find JS class to run depending on data-page-slug
     const selector = 'data-page-slug';
     const el = document.querySelector( `[${ selector }]` );

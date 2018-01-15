@@ -52,7 +52,7 @@ export default class TicTacToe extends EventEmitter {
             const initializers = [
                 await this.initGame(),
                 // Players names and colors
-                await this.playersInstance.initPlayers( this.cellsInstance.cellsEdge ),
+                await this.playersInstance.init( this.cellsInstance.cellsEdge ),
                 await this.playersInstance.turnPlayerTo( this.activePlayer, this.isFreeze, true ),
                 await this.toggleFreeze()
             ];
@@ -78,11 +78,11 @@ export default class TicTacToe extends EventEmitter {
 
     async onClick ( e ) {
         this.emit( 'waitStart' );
+        await this.toggleFreeze();
         const btn = e.currentTarget;
         const playerId = btn.getAttribute( 'data-player-id' );
         const cellIndex = parseInt( btn.getAttribute( 'data-cell-index' ), 10 );
         const cellClicked = this.cellsInstance.cells[ cellIndex ];
-        await this.toggleFreeze();
 
         const canContinue = await this.checkIfGameContinues( cellClicked, playerId );
         if ( !canContinue ) {
@@ -190,22 +190,7 @@ export default class TicTacToe extends EventEmitter {
     async toggleFreeze () {
         return new Promise( async ( resolve ) => {
             this.isFreeze = !this.isFreeze;
-
-            await Promise.all( this.playersInstance.buttons.map( async ( btn ) => {
-                // listeners
-                btn.classList.toggle( 'disabled' );
-                btn[ this.isFreeze ? 'removeEventListener' : 'addEventListener' ]( 'click', this.buttonsListener );
-                return btn;
-            } ) ).then( () => {
-                // TODO: should be in players.js
-                // Blinking player indicator
-                const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ this.activePlayer.id }" ]` );
-                $joystick.classList.toggle( 'z-depth-3' );
-                $joystick.classList.toggle( 'joystick-is-authorized' );
-                const icon = $joystick.querySelector( '.name i' );
-                icon.classList[ this.isFreeze ? 'remove' : 'toggle' ]( 'blink' );
-                resolve( 'toggleFreeze' );
-            } );
+            resolve( this.playersInstance.toggleFreeze( this.isFreeze, this.buttonsListener, this.activePlayer.id ) );
         } );
     }
 }

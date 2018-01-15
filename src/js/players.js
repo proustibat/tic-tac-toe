@@ -1,4 +1,5 @@
 import Layout from './layout';
+import Util from './utils';
 
 export default class Players {
     constructor ( defaultPlayers, customPlayers ) {
@@ -10,14 +11,14 @@ export default class Players {
         }
     }
 
-    async initPlayers ( cellsEdge ) {
+    async init ( cellsEdge ) {
         return new Promise( async ( resolve ) => {
             await Promise.all( this.players.map( async ( player ) => {
                 const $joystick = await document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
                 const $name = await $joystick.querySelector( '.name' );
 
-                await this.initPlayerName( $name, player );
-                await this.initPlayerScore( $name, player );
+                await this.initName( $name, player );
+                await this.initScore( $name, player );
                 await this.initPlayerJoystick( player.id, $joystick, cellsEdge );
 
                 return player;
@@ -28,7 +29,7 @@ export default class Players {
         } );
     }
 
-    async initPlayerName ( $name, player ) {
+    async initName ( $name, player ) {
         return new Promise( async ( resolve ) => {
             while ( $name.firstChild ) {
                 await $name.removeChild( $name.firstChild );
@@ -53,7 +54,7 @@ export default class Players {
         } );
     }
 
-    async initPlayerScore ( $name, player ) {
+    async initScore ( $name, player ) {
         return new Promise( async ( resolve ) => {
             let score;
             if ( $name.querySelector( '.score' ) ) {
@@ -79,16 +80,19 @@ export default class Players {
     async initPlayerJoystick ( playerId, container, cellsEdge ) {
         return new Promise( async ( resolve ) => {
             // grid
-            let grid = await this.createGrid( container, cellsEdge );
+            let grid = await this.createJoystickGrid( container, cellsEdge );
 
             // buttons
-            await this.createButtons( grid, playerId, cellsEdge );
+            await Promise.all(
+                Util.getMap( Math.pow( cellsEdge, 2 ) )
+                    .map( async ( item, i ) => this.createJoystickButton( grid, playerId, i ) )
+            );
 
             resolve( `initJoystick ${ playerId }` );
         } );
     }
 
-    async createGrid ( container, cellsEdge ) {
+    async createJoystickGrid ( container, cellsEdge ) {
         return new Promise( async ( resolve ) => {
             let grid;
             if ( container.querySelector( '.grid' ) ) {
@@ -104,23 +108,6 @@ export default class Players {
             await grid.style.setProperty( 'grid-template-columns', `repeat(${ cellsEdge }, 1fr)` );
             resolve( grid );
         } );
-    }
-
-    async addNewEl ( { tagName, classes = [], appendIntoEl } ) {
-        const el = await document.createElement( tagName );
-        classes.forEach( async ( className ) => {
-            await el.classList.add( className );
-        } );
-        await appendIntoEl.appendChild( el );
-        return el;
-    }
-
-    async createButtons ( grid, playerId, cellsEdge ) {
-        const buttonsPromises = [];
-        for ( let i = 0, l = Math.pow( cellsEdge, 2 ); i < l; i++ ) {
-            buttonsPromises.push( await this.createJoystickButton( grid, playerId, i ) );
-        }
-        return Promise.all( buttonsPromises );
     }
 
     async createJoystickButton ( grid, playerId, i ) {
@@ -166,5 +153,33 @@ export default class Players {
                 resolve( { [ `turnPlayerTo-${ player.id }` ]: false } );
             }
         } );
+    }
+
+    async toggleFreeze ( isFreeze, buttonsListener, activePlayerId ) {
+        return new Promise( async ( resolve ) => {
+            await Promise.all( this.buttons.map( async ( btn ) => {
+                // listeners
+                btn.classList.toggle( 'disabled' );
+                btn[ isFreeze ? 'removeEventListener' : 'addEventListener' ]( 'click', buttonsListener );
+                return btn;
+            } ) ).then( () => {
+                // Blinking player indicator
+                const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ activePlayerId }" ]` );
+                $joystick.classList.toggle( 'z-depth-3' );
+                $joystick.classList.toggle( 'joystick-is-authorized' );
+                const icon = $joystick.querySelector( '.name i' );
+                icon.classList[ isFreeze ? 'remove' : 'toggle' ]( 'blink' );
+                resolve( 'toggleFreeze' );
+            } );
+        } );
+    }
+
+    async addNewEl ( { tagName, classes = [], appendIntoEl } ) {
+        const el = await document.createElement( tagName );
+        classes.forEach( async ( className ) => {
+            await el.classList.add( className );
+        } );
+        await appendIntoEl.appendChild( el );
+        return el;
     }
 }
