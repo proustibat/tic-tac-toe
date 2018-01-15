@@ -1,4 +1,6 @@
-import './imports-css';
+// css
+import '../styles/main.scss';
+
 import './imports-js';
 
 // App

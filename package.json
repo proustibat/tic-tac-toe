@@ -15,7 +15,6 @@
     "chalk": "2.3.0",
     "clean-webpack-plugin": "0.1.17",
     "css-loader": "0.28.7",
-    "csslint": "1.0.5",
     "eslint": "4.15.0",
     "eslint-config-eslint": "4.0.0",
     "eslint-config-standard": "11.0.0-beta.0",
@@ -23,15 +22,20 @@
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-node": "5.2.1",
     "eslint-plugin-standard": "3.0.1",
+    "extract-text-webpack-plugin": "3.0.2",
     "favicons-webpack-plugin": "0.0.7",
     "file-loader": "1.1.6",
     "html-webpack-plugin": "2.30.1",
     "jquery": "3.2.1",
     "materialize-css": "0.100.2",
+    "node-sass": "4.7.2",
     "path": "0.12.7",
     "raw-loader": "0.5.1",
+    "sass-loader": "6.0.6",
     "standard": "10.0.3",
     "style-loader": "0.19.1",
+    "stylelint": "8.4.0",
+    "stylelint-config-standard": "18.0.0",
     "uglifyjs-webpack-plugin": "1.1.4",
     "url-loader": "0.6.2",
     "util": "0.10.3",
@@ -43,11 +47,12 @@
     "start": "node build.js && webpack-dev-server --open  --config webpack.dev.js",
     "build": "node build.js && yarn lint:css && yarn lint:js && webpack --config webpack.prod.js",
     "lint:js": "eslint . --ext .js -c .eslintrc.js --fix",
-    "lint:css": "csslint . --exclude-list=node_modules,src/css/shame.css --config=.csslintrc"
+    "lint:css": "stylelint 'src/styles/*.scss' --color --fix"
   },
   "dependencies": {
     "events": "1.1.1",
+    "reset-css": "2.2.1",
     "spectrum-colorpicker": "1.8.0",
-    "svg-loader-es6": "1.0.5"
+    "svg-loader-es6": "^1.1.0"
   }
 }

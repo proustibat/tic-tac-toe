@@ -1,0 +1,81 @@
+/*******************************
+ *  GAME
+ *******************************/
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 700px;
+  margin: auto;
+}
+
+.progress {
+  background-color: black;
+}
+
+.progress .indeterminate {
+  background-color: grey;
+}
+
+.game-canvas {
+  border: 3px dotted #212121;
+  margin: 0;
+  width: 100%;
+}
+
+.joysticks {
+  display: flex;
+  margin-top: 1.5rem;
+}
+
+.canvas-container {
+  margin-bottom: 1.5rem;
+}
+
+.players-joystick {
+  padding: 0.5rem;
+  outline: 2px dotted #212121;
+  margin: 0 0.5rem;
+  transition: box-shadow 250ms ease;
+
+  .btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
+  }
+
+  .btn i {
+    line-height: 2.6rem;
+    font-size: 1.8rem;
+  }
+
+  .name {
+    font-size: 1.2rem;
+    margin: 0.5rem 0.2rem 0.8rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    > i {
+      margin-right: 0.5rem;
+    }
+
+    .score {
+      text-align: right;
+      min-width: auto;
+      padding: 0;
+    }
+  }
+}
+
+.joystick-is-authorized {
+  transform: scale(1.05);
+}
+
+.grid {
+  display: grid;
+  grid-gap: 1px;
+  justify-items: center;
+}

@@ -1,0 +1,50 @@
+/*******************************
+ *  MODAL FORM
+ *******************************/
+
+.waves-dark .waves-ripple {
+  /* The alpha value allows the text and background color
+    of the button to still show through. */
+  background-color: rgb(33, 33, 33); /* The Fallback */
+  background-color: rgba(33, 33, 33, 0.8);
+}
+
+.playground-range-input[type=range]::-webkit-slider-thumb,
+.playground-range-input[type=range]::-moz-range-thumb,
+.playground-range-input[type=range]::-ms-thumb {
+  background-color: #212121;
+}
+
+/***** These are to edit the thumb and the text inside the thumb *****/
+.playground-range-input[type=range] + .thumb {
+  background-color: #e0e0e0;
+}
+
+.playground-range-input[type=range] + .thumb.active .value {
+  color: #212121;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label {
+  color: #212121;
+}
+
+input[type=text].valid:not(.browser-default),
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #212121;
+  box-shadow: 0 1px 0 0 #212121;
+}
+
+/*******************************
+ *  TOASTS
+ *******************************/
+
+#toast-container {
+  min-width: 100%;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+}

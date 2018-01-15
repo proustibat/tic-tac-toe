@@ -21,13 +21,13 @@ module.exports = {
                     'raw-loader'
                 ]
             },
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader?sourceMap',
-                    'css-loader?sourceMap'
-                ]
-            },
+            // {
+            //     test: /\.css$/,
+            //     use: [
+            //         'style-loader?sourceMap',
+            //         'css-loader?sourceMap'
+            //     ]
+            // },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [

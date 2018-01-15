@@ -1,0 +1,29 @@
+/*******************************
+ *  MODAL SETTINGS
+ *******************************/
+
+.input-color {
+  margin-top: 2rem;
+
+  .material-icons {
+    position: relative;
+  }
+
+  label {
+    transform: translateY(-0.5rem);
+  }
+
+  .picker-color-replacer {
+    position: absolute;
+    top: 1rem;
+    border: none;
+  }
+}
+
+.sp-container {
+  border: none;
+}
+
+.modal-settings .modal-footer {
+  text-align: center;
+}
