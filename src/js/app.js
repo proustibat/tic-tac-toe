@@ -2,9 +2,9 @@ import Layout from './layout';
 import TicTacToe from './tic-tac-toe';
 import { SVGLoader } from 'svg-loader-es6';
 
-export default class APP {
-    constructor () {
-        this.container = document.body.querySelector( '.main-container' );
+export default class App {
+    constructor ( element ) {
+        this.container = element;
         this.loader = document.createElement( 'div' );
         this.secondaryLoader = null;
         this.layout = null;

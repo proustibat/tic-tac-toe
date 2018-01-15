@@ -67,8 +67,8 @@ class Build {
     }
 
     writeAppInfo () {
-        logger.info( 'Writing content into file AppInfo.js' );
-        fs.writeFile( './src/js/AppInfo.js', `${ this.contentFile }`, err => {
+        logger.info( 'Writing content into file app-info.js' );
+        fs.writeFile( './src/js/app-info.js', `${ this.contentFile }`, err => {
             if ( err ) {
                 logger.error( err );
                 return false;

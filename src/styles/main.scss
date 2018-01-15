@@ -5,9 +5,14 @@
 @import '~spectrum-colorpicker/spectrum.css';
 
 // App
+@import 'theme-colors';
+@import 'variables';
+@import 'mixins';
+@import 'animations';
 @import 'general';
 @import 'google-fonts';
 @import 'utilities';
 @import 'tictactoe';
 @import 'modal';
+@import 'page-dashboard';
 @import 'shame';

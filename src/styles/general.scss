@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: 'Sedgwick Ave Display', cursive;
+  font-family: $theme-font;
 }
 
 /* Only necessary for window height sized blocks. */
