@@ -10,7 +10,6 @@ export default class Layout extends EventEmitter {
     }
 
     init () {
-        console.info( 'Layout.init' );
         this._playerColors = [ '#fff', '#fff' ];
         this.initMenu();
         this.initModal();
@@ -18,7 +17,6 @@ export default class Layout extends EventEmitter {
     }
 
     initMenu () {
-        console.info( 'Layout.initMenu' );
         // Initialize collapse button
         $( '.button-collapse' ).sideNav( {
             menuWidth: 300,
@@ -38,17 +36,10 @@ export default class Layout extends EventEmitter {
     }
 
     listenMenuSettings ( enable = true ) {
-        if ( enable ) {
-            console.log( 'ENABLE MENU' );
-        }
-        else {
-            console.log( 'DISABLE MENU' );
-        }
         this.menuButtons.forEach( btn => btn[ enable ? 'addEventListener' : 'removeEventListener' ]( 'click', this.buttonsListener ) );
     }
 
     initModal () {
-        console.info( 'Layout.initModal' );
         this.submitListener = this.onSubmitModal.bind( this );
         this.resetListener = this.onResetModal.bind( this );
         this.modalSettings = $( '.modal-settings' ).modal( {
@@ -63,7 +54,6 @@ export default class Layout extends EventEmitter {
     }
 
     onModalOpen () {
-        console.info( 'Layout.onModalOpen' );
         [ ...$( '.picker-color' ) ].forEach( ( input, i ) => {
             $( input ).spectrum( {
                 color: this.playerColors[ i ],
@@ -75,9 +65,6 @@ export default class Layout extends EventEmitter {
                 cancelText: 'Get out of here',
                 replacerClassName: 'picker-color-replacer',
                 preferredFormat: 'hex3'
-                // show: tinycolor => {
-                //     console.log( 'picker-color ', tinycolor );
-                // }
             } );
         } );
         document.querySelector( '.modal-footer .btn[type=submit]' ).addEventListener( 'click', this.submitListener );
@@ -85,20 +72,17 @@ export default class Layout extends EventEmitter {
     }
 
     onModalClose () {
-        console.info( 'Layout.onModalClose' );
         $( '.picker-color' ).spectrum( 'destroy' );
         document.querySelector( '.modal-footer .btn[type=submit]' ).removeEventListener( 'click', this.submitListener );
         document.querySelector( '.modal-footer .btn[type=reset]' ).removeEventListener( 'click', this.resetListener );
     }
 
     onResetModal () {
-        console.info( 'Layout.onResetModal' );
         const pickerColors = this.modalSettings[ 0 ].querySelectorAll( 'form .picker-color' );
         pickerColors.forEach( ( input, i ) => $( input ).spectrum( 'set', this.playerColors[ i ] ) );
     }
 
     onSubmitModal ( e ) {
-        console.info( 'Layout.onSubmitModal' );
         e.preventDefault();
         const form = this.modalSettings[ 0 ].querySelector( 'form' );
 
@@ -132,7 +116,6 @@ export default class Layout extends EventEmitter {
     }
 
     onMenuItem ( e ) {
-        console.info( 'Layout.onMenuItem' );
         e.preventDefault();
         const btn = e.currentTarget;
         const role = btn.getAttribute( 'data-role' );
@@ -145,17 +128,14 @@ export default class Layout extends EventEmitter {
     }
 
     alert ( msg, time, onComplete = () => {} ) {
-        console.info( 'Layout.alert' );
         Layout.toast( msg, time, 'red accent-4', onComplete );
     }
 
     info ( msg, time, onComplete = () => {} ) {
-        console.info( 'Layout.info' );
         Layout.toast( msg, time, 'green accent-4', onComplete );
     }
 
     static toast ( msg, time = 3000, colorClass = null, onComplete = () => {} ) {
-        console.info( 'Layout.toast' );
         if ( !msg || typeof msg !== 'string' ) {
             return false;
         }
