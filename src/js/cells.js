@@ -52,7 +52,7 @@ export default class Cells {
 
                 this.winningCells = await [ this.lines, this.columns, this.diagonals ];
 
-                resolve( `initCells [${saveCellsArr}, ${saveCellsArr}]` );
+                resolve( `initCells [${ saveCellsArr }, ${ saveCellsArr }]` );
             }, 800 );
         } );
     }
@@ -77,7 +77,7 @@ export default class Cells {
                     this.diagonals[ 1 ].push( cell );
                 }
 
-                resolve( `saveCell [${row}, ${col}]` );
+                resolve( `saveCell [${ row }, ${ col }]` );
             }, 200 );
         } );
     }
@@ -91,7 +91,7 @@ export default class Cells {
                 this.ctx.strokeStyle = await borderColor;
                 await this.ctx.strokeRect( ...coordinates );
 
-                resolve( `fillCell ${coordinates}` );
+                resolve( `fillCell ${ coordinates }` );
             }, 200 );
         } );
     }

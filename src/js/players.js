@@ -16,7 +16,7 @@ export default class Players {
         return new Promise( async ( resolve ) => {
             setTimeout( async () => {
                 await Promise.all( this.players.map( async ( player ) => {
-                    const $joystick = await document.querySelector( `[ data-tictactoe-player-id="${player.id}" ]` );
+                    const $joystick = await document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
                     const $name = await $joystick.querySelector( '.name' );
 
                     const initPlayerName = await this.initPlayerName( $name, player );
@@ -49,7 +49,8 @@ export default class Players {
                 let symbol;
                 if ( $name.querySelector( 'i' ) ) {
                     symbol = $name.querySelector( 'i' );
-                } else {
+                }
+                else {
                     symbol = document.createElement( 'i' );
                     symbol.style.width = '10px';
                     symbol.style.height = '10px';
@@ -59,9 +60,9 @@ export default class Players {
                     await $name.appendChild( symbol );
                 }
                 symbol.style.backgroundColor = player.color;
-                await $name.appendChild( document.createTextNode( ` ${player.pseudo}` ) );
+                await $name.appendChild( document.createTextNode( ` ${ player.pseudo }` ) );
 
-                resolve( `initPlayerName ${player.pseudo}` );
+                resolve( `initPlayerName ${ player.pseudo }` );
             }, 800 );
         } );
     }
@@ -73,13 +74,14 @@ export default class Players {
                 let score;
                 if ( $name.querySelector( '.score' ) ) {
                     score = await $name.querySelector( '.score' );
-                } else {
+                }
+                else {
                     score = await document.createElement( 'span' );
                     await score.setAttribute( 'class', 'score badge grey-text text-lighten-5' );
                     await $name.appendChild( score );
                 }
-                await score.appendChild( document.createTextNode( `${player.score}` ) );
-                resolve( `initPlayerScore ${player.pseudo}` );
+                await score.appendChild( document.createTextNode( `${ player.score }` ) );
+                resolve( `initPlayerScore ${ player.pseudo }` );
             }, 800 );
         } );
     }
@@ -94,7 +96,7 @@ export default class Players {
                 // buttons
                 await this.createButtons( grid, playerId, cellsEdge );
 
-                resolve( `initJoystick ${playerId}` );
+                resolve( `initJoystick ${ playerId }` );
             }, 800 );
         } );
     }
@@ -108,13 +110,14 @@ export default class Players {
                     while ( grid.firstChild ) {
                         await grid.removeChild( grid.firstChild );
                     }
-                } else {
+                }
+                else {
                     grid = await document.createElement( 'div' );
                     await grid.setAttribute( 'class', 'grid' );
                     await container.appendChild( grid );
                 }
 
-                await grid.style.setProperty( 'grid-template-columns', `repeat(${cellsEdge}, 1fr)` );
+                await grid.style.setProperty( 'grid-template-columns', `repeat(${ cellsEdge }, 1fr)` );
                 resolve( grid );
             }, 1000 );
         } );
@@ -129,7 +132,7 @@ export default class Players {
     }
 
     async createJoystickButton ( grid, playerId, i ) {
-        console.log( `createJoystickButton ${i} for ${playerId}` );
+        console.log( `createJoystickButton ${ i } for ${ playerId }` );
         return new Promise( async ( resolve ) => {
             setTimeout( async () => {
                 const btn = document.createElement( 'a' );
@@ -142,8 +145,8 @@ export default class Players {
                 btn.setAttribute( 'data-player-id', playerId );
                 grid.appendChild( btn );
                 this.buttons.push( btn );
-                console.log( `Done button ${i} for ${playerId} ` );
-                resolve( `Done button ${i} for ${playerId} ` );
+                console.log( `Done button ${ i } for ${ playerId } ` );
+                resolve( `Done button ${ i } for ${ playerId } ` );
             }, 500 );
         } );
     }
@@ -155,18 +158,19 @@ export default class Players {
                 // activePlayer = player;
                 if ( !isInit && !gameIsFreeze ) {
                     await Promise.all( this.players.map( async ( p ) => {
-                        const $joystick = document.querySelector( `[ data-tictactoe-player-id="${p.id}" ]` );
+                        const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ p.id }" ]` );
                         $joystick.classList.toggle( 'z-depth-3' );
                         $joystick.classList.toggle( 'joystick-is-authorized' );
                         $joystick.querySelector( '.name i' ).classList.toggle( 'blink' );
                         return p;
                     } ) ).then( () => {
                         console.info( ' -- End turnPlayerTo ', player.pseudo );
-                        resolve( `turnPlayerTo ${player.pseudo}` );
+                        resolve( `turnPlayerTo ${ player.pseudo }` );
                     } );
-                } else {
+                }
+                else {
                     console.info( ' -- End turnPlayerTo ', player.pseudo, 'not active' );
-                    resolve( `NOT TURN TO ${player.pseudo}` );
+                    resolve( `NOT TURN TO ${ player.pseudo }` );
                 }
             }, 3000 );
         } );

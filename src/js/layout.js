@@ -40,7 +40,8 @@ export default class Layout extends EventEmitter {
     listenMenuSettings ( enable = true ) {
         if ( enable ) {
             console.log( 'ENABLE MENU' );
-        } else {
+        }
+        else {
             console.log( 'DISABLE MENU' );
         }
         this.menuButtons.forEach( btn => btn[ enable ? 'addEventListener' : 'removeEventListener' ]( 'click', this.buttonsListener ) );
@@ -104,11 +105,11 @@ export default class Layout extends EventEmitter {
         // Players info
         let players = [ {}, {} ];
         for ( let i = 0; i < 2; i++ ) {
-            const name = form.querySelector( `#player-${i + 1}-pseudo` ).value;
+            const name = form.querySelector( `#player-${ i + 1 }-pseudo` ).value;
             if ( name.length > 0 ) {
                 players[ i ].pseudo = name;
             }
-            const color = `#${$( form.querySelectorAll( '.picker-color' )[ i ] ).spectrum( 'get' ).toHex()}`;
+            const color = `#${ $( form.querySelectorAll( '.picker-color' )[ i ] ).spectrum( 'get' ).toHex() }`;
             if ( color.length > 0 ) {
                 players[ i ].color = color;
             }

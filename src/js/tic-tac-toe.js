@@ -76,7 +76,7 @@ export default class TicTacToe extends EventEmitter {
         return new Promise( async ( resolve ) => {
             // Canvas size
             this.canvas.width = this.canvas.height = await this.canvasSize;
-            this.canvas.parentElement.style.width = this.canvas.parentElement.style.height = await `${this.canvasSize}px`;
+            this.canvas.parentElement.style.width = this.canvas.parentElement.style.height = await `${ this.canvasSize }px`;
 
             // Declarations of every cells
             await this.cellsInstance.init();
@@ -85,12 +85,13 @@ export default class TicTacToe extends EventEmitter {
             const initCells = await this.cellsInstance.initCells( this.canvasSize );
 
             console.info( ' -- End', initCells );
-            resolve( `initGame [${initCells}]` );
+            resolve( `initGame [${ initCells }]` );
         } );
     }
 
     async onClick ( e ) {
         console.info( 'TicTacToe.onClick' );
+        this.emit( 'waitStart' );
         const btn = e.currentTarget;
         const playerId = btn.getAttribute( 'data-player-id' );
         const cellIndex = parseInt( btn.getAttribute( 'data-cell-index' ), 10 );
@@ -99,6 +100,7 @@ export default class TicTacToe extends EventEmitter {
 
         const canContinue = await this.checkIfGameContinues( cellClicked, playerId );
         if ( !canContinue ) {
+            this.emit( 'waitEnd' );
             await this.toggleFreeze();
             return false;
         }
@@ -107,20 +109,14 @@ export default class TicTacToe extends EventEmitter {
         cellClicked.isActive = false;
         cellClicked.ownedBy = playerId;
         await this.checkEndGame();
-        // if ( isEnd ) {
-        //     console.info( 'This is the end!' );
-        // }
-        // else {
-        //     console.info( 'Game continues...' );
-        //     await this.toggleFreeze();
-        // }
         this.activePlayer = await [ ...this.playersInstance.players ].find( player => player.id !== playerId );
         await this.playersInstance.turnPlayerTo( this.activePlayer, this.isFreeze );
+        this.emit( 'waitEnd' );
     }
 
     async checkIfGameContinues ( cellClicked, playerId ) {
         if ( this.activePlayer.id !== playerId ) {
-            this.layout.alert( `${[ ...this.playersInstance.players ].find( player => player.id === playerId ).pseudo}: it's not your turn!` );
+            this.layout.alert( `${ [ ...this.playersInstance.players ].find( player => player.id === playerId ).pseudo }: it's not your turn!` );
             return false;
         }
 
@@ -141,12 +137,14 @@ export default class TicTacToe extends EventEmitter {
                     if ( endedData.winner ) {
                         this.activePlayer.score++;
                         this.updateScore( this.activePlayer );
-                        this.layout.info( `${this.activePlayer.pseudo} wins!`, 4000, this.playAgain.bind( this, true ) );
-                    } else {
+                        this.layout.info( `${ this.activePlayer.pseudo } wins!`, 4000, this.playAgain.bind( this, true ) );
+                    }
+                    else {
                         this.layout.info( 'The game is over with no winner!', 4000, this.playAgain.bind( this, true ) );
                     }
                     this.emit( 'endGame' );
-                } else {
+                }
+                else {
                     this.toggleFreeze();
                 }
 
@@ -207,9 +205,9 @@ export default class TicTacToe extends EventEmitter {
 
     async updateScore ( player ) {
         console.info( 'TicTacToe.updateScore ', player.id, player.pseudo );
-        const $joystick = document.querySelector( `[ data-tictactoe-player-id="${player.id}" ]` );
+        const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ player.id }" ]` );
         const $score = $joystick.querySelector( '.score' );
-        $score.firstChild.nodeValue = `${player.score}`;
+        $score.firstChild.nodeValue = `${ player.score }`;
     }
 
     async toggleFreeze () {
@@ -226,7 +224,7 @@ export default class TicTacToe extends EventEmitter {
                 } ) ).then( () => {
                     // TODO: should be in players.js
                     // Blinking player indicator
-                    const $joystick = document.querySelector( `[ data-tictactoe-player-id="${this.activePlayer.id}" ]` );
+                    const $joystick = document.querySelector( `[ data-tictactoe-player-id="${ this.activePlayer.id }" ]` );
                     $joystick.classList.toggle( 'z-depth-3' );
                     $joystick.classList.toggle( 'joystick-is-authorized' );
                     const icon = $joystick.querySelector( '.name i' );

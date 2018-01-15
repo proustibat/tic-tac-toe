@@ -42,6 +42,10 @@ module.exports ={
         'object-curly-spacing': [ 'error', 'always' ],
         'space-in-parens': [ 'error', 'always' ],
         'comma-style': [ 'error', 'last' ],
-        'comma-dangle': [ 'error', 'only-multiline' ]
+        'comma-dangle': [ 'error', 'only-multiline' ],
+        'template-curly-spacing': [ 'error', 'always' ],
+        'brace-style': [ 'error', 'stroustrup', { 'allowSingleLine': true } ],
+        'no-trailing-spaces': [ 'error', { 'skipBlankLines': true } ],
+        'no-new': [ 'off' ]
     }
 };

@@ -98,6 +98,14 @@ html, body, .block {
     margin: auto;
 }
 
+.progress {
+    background-color: black;
+}
+
+.progress .indeterminate {
+    background-color: grey;
+}
+
 .game-canvas {
     border: 3px dotted #212121;
     margin: 0;
@@ -106,7 +114,11 @@ html, body, .block {
 
 .joysticks {
     display: flex;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
+}
+
+.canvas-container {
+    margin-bottom: 1.5rem;
 }
 
 .players-joystick {
