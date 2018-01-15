@@ -9963,6 +9963,33 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased; }
 
+/**
+https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862
+// usage
+.my-box {
+  padding: 10px;
+
+  @include for-size(desktop-up) {
+    padding: 20px;
+  }
+}
+ */
+@keyframes showMessage {
+  from {
+    transform: translateY(1rem);
+    opacity: 0; }
+  to {
+    transform: translateY(0);
+    opacity: 1; } }
+
+@keyframes hideMessage {
+  from {
+    transform: translateY(0);
+    opacity: 1; }
+  to {
+    transform: translateY(1rem);
+    opacity: 0; } }
+
 /*******************************
  *  LAYOUT
  *******************************/
@@ -9975,7 +10002,7 @@ html {
   box-sizing: inherit; }
 
 body {
-  font-family: 'Sedgwick Ave Display', cursive; }
+  font-family: "Sedgwick Ave Display", cursive; }
 
 /* Only necessary for window height sized blocks. */
 html,
@@ -10164,6 +10191,42 @@ body,
 
 .modal-settings .modal-footer {
   text-align: center; }
+
+.page-dashboard h2 {
+  font-size: 2rem;
+  padding: 1rem; }
+
+.page-dashboard .sections {
+  background: #ebebeb;
+  padding: 2rem;
+  border-radius: 0.2rem; }
+
+.page-dashboard section {
+  margin-bottom: 2rem; }
+  .page-dashboard section:last-child {
+    margin: 0; }
+
+.page-dashboard h3 {
+  font-size: 1.6rem;
+  padding-bottom: 0.7rem;
+  margin-bottom: 0.7rem;
+  border-bottom: 1px solid #fafafa; }
+
+.page-dashboard h4 {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem; }
+
+.page-dashboard p {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem; }
+
+.page-dashboard a {
+  margin: 0.1rem; }
+  @media (max-width: 599px) {
+    .page-dashboard a {
+      display: block;
+      width: min-content; } }
 
 /*******************************
  *  MODAL FORM
