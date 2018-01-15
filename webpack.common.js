@@ -2,6 +2,7 @@ const path = require( 'path' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const FaviconsWebpackPlugin = require( 'favicons-webpack-plugin' );
+const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 
 module.exports = {
     entry: [
@@ -52,6 +53,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new StyleLintPlugin( {
+            configFile: '.stylelintrc'
+        } ),
         new HtmlWebpackPlugin( {
             template: './src/index.html',
             hash: true,
