@@ -39,13 +39,12 @@ export default class Players {
                 symbol = $name.querySelector( 'i' );
             }
             else {
-                symbol = document.createElement( 'i' );
+                symbol = await this.addNewEl( { tagName: 'i', appendIntoEl: $name } );
                 symbol.style.width = '10px';
                 symbol.style.height = '10px';
                 symbol.style.display = 'inline-block';
                 symbol.style.verticalAlign = 'middle';
                 symbol.style.borderRadius = '5px';
-                await $name.appendChild( symbol );
             }
             symbol.style.backgroundColor = player.color;
             await $name.appendChild( document.createTextNode( ` ${ player.pseudo }` ) );
@@ -61,9 +60,16 @@ export default class Players {
                 score = await $name.querySelector( '.score' );
             }
             else {
-                score = await document.createElement( 'span' );
-                await score.setAttribute( 'class', 'score badge grey-text text-lighten-5' );
-                await $name.appendChild( score );
+                score = await this.addNewEl( {
+                    tagName: 'span',
+                    classes: [
+                        'score',
+                        'badge',
+                        'grey-text',
+                        'text-lighten-5'
+                    ],
+                    appendIntoEl: $name
+                } );
             }
             await score.appendChild( document.createTextNode( `${ player.score }` ) );
             resolve( `initPlayerScore ${ player.pseudo }` );
@@ -92,14 +98,21 @@ export default class Players {
                 }
             }
             else {
-                grid = await document.createElement( 'div' );
-                await grid.setAttribute( 'class', 'grid' );
-                await container.appendChild( grid );
+                grid = await this.addNewEl( { tagName: 'div', classes: [ 'grid' ], appendIntoEl: container } );
             }
 
             await grid.style.setProperty( 'grid-template-columns', `repeat(${ cellsEdge }, 1fr)` );
             resolve( grid );
         } );
+    }
+
+    async addNewEl ( { tagName, classes = [], appendIntoEl } ) {
+        const el = await document.createElement( tagName );
+        classes.forEach( async ( className ) => {
+            await el.classList.add( className );
+        } );
+        await appendIntoEl.appendChild( el );
+        return el;
     }
 
     async createButtons ( grid, playerId, cellsEdge ) {
@@ -112,15 +125,25 @@ export default class Players {
 
     async createJoystickButton ( grid, playerId, i ) {
         return new Promise( async ( resolve ) => {
-            const btn = document.createElement( 'a' );
-            const icon = document.createElement( 'i' );
-            btn.appendChild( icon );
-            icon.setAttribute( 'class', 'material-icons grey-text text-darken-4' );
-            icon.append( document.createTextNode( 'fiber_manual_record' ) );
-            btn.setAttribute( 'class', 'btn waves-effect waves-dark grey lighten-4 disabled' );
+            const btn = await this.addNewEl( {
+                tagName: 'a',
+                classes: [
+                    'btn',
+                    'waves-effect',
+                    'waves-dark',
+                    'grey',
+                    'lighten-4',
+                    'disabled'
+                ],
+                appendIntoEl: grid
+            } );
             btn.setAttribute( 'data-cell-index', i );
             btn.setAttribute( 'data-player-id', playerId );
-            grid.appendChild( btn );
+
+            const icon = await this.addNewEl( { tagName: 'i', appendIntoEl: btn } );
+            icon.setAttribute( 'class', 'material-icons grey-text text-darken-4' );
+            icon.append( document.createTextNode( 'fiber_manual_record' ) );
+
             this.buttons.push( btn );
             resolve( `Done button ${ i } for ${ playerId } ` );
         } );
