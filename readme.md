@@ -8,6 +8,8 @@
    
 # TIC TAC TOE <a href='https://insight.io/github.com/proustibat/tic-tac-toe?source=0'><img width='104' src='https://user-images.githubusercontent.com/1054387/34342927-e67370f2-e9bf-11e7-85c1-6ebda46d5f03.png' alt='insight.io ready' /></a>
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/proustibat/tic-tac-toe.svg)](https://greenkeeper.io/)
+
 A simple tic tac toe game in ES6
 
 ## [See the demo here](https://proustibat.github.io/tic-tac-toe/)
