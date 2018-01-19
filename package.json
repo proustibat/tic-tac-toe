@@ -1,6 +1,6 @@
 {
   "name": "prstbt-tictactoe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "main.js",
   "repository": "git@github.com:proustibat/tic-tac-toe.git",
   "author": "Proustibat <proustibat@gmail.com>",
