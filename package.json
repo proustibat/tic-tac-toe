@@ -1,6 +1,6 @@
 {
   "name": "prstbt-tictactoe",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "main.js",
   "repository": "git@github.com:proustibat/tic-tac-toe.git",
   "author": "Proustibat <proustibat@gmail.com>",
@@ -26,8 +26,6 @@
     "favicons-webpack-plugin": "0.0.7",
     "file-loader": "1.1.6",
     "html-webpack-plugin": "2.30.1",
-    "jquery": "3.3.1",
-    "materialize-css": "0.100.2",
     "node-sass": "4.7.2",
     "path": "0.12.7",
     "raw-loader": "0.5.1",
@@ -55,6 +53,8 @@
     "events": "1.1.1",
     "reset-css": "2.2.1",
     "spectrum-colorpicker": "1.8.0",
-    "svg-loader-es6": "^1.1.0"
+    "svg-loader-es6": "1.1.0",
+    "jquery": "3.3.1",
+    "materialize-css": "0.100.2"
   }
 }
