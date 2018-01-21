@@ -53,7 +53,7 @@
     "events": "1.1.1",
     "reset-css": "2.2.1",
     "spectrum-colorpicker": "1.8.0",
-    "svg-loader-es6": "1.1.0",
+    "svg-loader-es6": "1.1.1",
     "jquery": "3.3.1",
     "materialize-css": "0.100.2"
   }
