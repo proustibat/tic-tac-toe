@@ -50,7 +50,7 @@
     "lint:css": "stylelint 'src/styles/*.scss' --color --fix"
   },
   "dependencies": {
-    "events": "1.1.1",
+    "events": "2.0.0",
     "reset-css": "2.2.1",
     "spectrum-colorpicker": "1.8.0",
     "svg-loader-es6": "1.1.1",
