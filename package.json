@@ -35,7 +35,7 @@
     "stylelint": "8.4.0",
     "stylelint-config-standard": "18.0.0",
     "stylelint-webpack-plugin": "0.10.1",
-    "uglifyjs-webpack-plugin": "1.1.7",
+    "uglifyjs-webpack-plugin": "1.1.8",
     "underscore-template-loader": "0.8.0",
     "url-loader": "0.6.2",
     "util": "0.10.3",
@@ -51,10 +51,10 @@
   },
   "dependencies": {
     "events": "2.0.0",
+    "jquery": "3.3.1",
+    "materialize-css": "0.100.2",
     "reset-css": "2.2.1",
     "spectrum-colorpicker": "1.8.0",
-    "svg-loader-es6": "1.1.1",
-    "jquery": "3.3.1",
-    "materialize-css": "0.100.2"
+    "svg-loader-es6": "1.1.1"
   }
 }
