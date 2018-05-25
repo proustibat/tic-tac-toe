@@ -50,7 +50,7 @@
     "lint:css": "stylelint 'src/styles/*.scss' --color --fix"
   },
   "dependencies": {
-    "events": "2.0.0",
+    "events": "2.1.0",
     "jquery": "3.3.1",
     "materialize-css": "0.100.2",
     "reset-css": "2.2.1",
